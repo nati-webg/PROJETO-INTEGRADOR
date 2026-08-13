@@ -4,11 +4,208 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EcoTerm CEP - Aquecimento Solar & Óptica</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- CONFIGURAÇÕES GERAIS E ACESSIBILIDADE --- */
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f4f4f9;
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a4a4a;
+            --accent-color: #0056b3; 
+            --accent-hover: #003d82;
+        }
+
+        .alto-contraste {
+            --bg-primary: #000000;
+            --bg-secondary: #121212;
+            --text-primary: #ffffff;
+            --text-secondary: #e0e0e0;
+            --accent-color: #ffff00; 
+            --accent-hover: #ffea00;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        header {
+            background-color: var(--bg-primary);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-menu a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 0.75rem;
+            border-radius: 4px;
+        }
+
+        .nav-menu a:hover {
+            background-color: var(--accent-color);
+            color: var(--bg-primary);
+        }
+
+        .btn-acessibilidade {
+            background-color: var(--accent-color);
+            color: var(--bg-primary);
+            border: none;
+            padding: 0.5rem 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            background-color: var(--bg-primary);
+            padding: 2.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        h2 {
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .grid-concept {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        /* --- FOTOS DO SITE (MÁXIMA COMPATIBILIDADE) --- */
+        .foto-container {
+            text-align: center;
+        }
+
+        .imagem-renderizada {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            border: 4px solid var(--accent-color);
+        }
+
+        @media (max-width: 768px) {
+            .grid-concept { grid-template-columns: 1fr; }
+            .nav-container { flex-direction: column; gap: 1rem; }
+        }
+
+        /* --- ESTILIZAÇÃO DO SIMULADOR (DISCO) --- */
+        .simulador-box {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--bg-secondary);
+            border-radius: 8px;
+            border: 2px dashed var(--accent-color);
+        }
+
+        .disco-wrapper {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            margin: 1.5rem auto;
+        }
+
+        .disco-visual {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(red, orange, yellow, green, blue, indigo, violet, red);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: transform 0.5s ease, background 0.5s ease;
+        }
+
+        .disco-girando {
+            animation: girar 0.15s linear infinite;
+        }
+
+        @keyframes girar {
+            to { transform: rotate(360deg); }
+        }
+
+        .btn-simular {
+            background-color: var(--accent-color);
+            color: var(--bg-primary);
+            padding: 0.75rem 1.5rem;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .btn-simular:disabled { opacity: 0.6; cursor: not-allowed; }
+        .resultado-simulacao { margin-top: 1.5rem; font-weight: bold; font-size: 1.2rem; }
+
+        /* --- AUTOMAÇÃO --- */
+        .fluxograma {
+            background-color: var(--bg-secondary);
+            padding: 1.5rem;
+            border-left: 5px solid var(--accent-color);
+            margin-top: 1rem;
+        }
+        .fluxo-passo { margin-bottom: 0.7rem; padding-left: 1rem; font-size: 1.1rem; }
+        footer { text-align: center; padding: 2rem; background-color: var(--bg-primary); color: var(--text-secondary); margin-top: 4rem; border-top: 1px solid #dddddd; }
+    </style>
 </head>
 <body>
 
-    <!-- MENU DE NAVEGAÇÃO ACESSÍVEL -->
+    <!-- CABEÇALHO -->
     <header>
         <nav class="nav-container" aria-label="Navegação Principal">
             <div class="logo">EcoTerm CEP ☀️</div>
@@ -16,72 +213,72 @@
                 <li><a href="#conceito">Óptica & Newton</a></li>
                 <li><a href="#simulador">Simulador</a></li>
                 <li><a href="#automacao">Automação</a></li>
-                <li><a href="#impacto">Impacto Social</a></li>
             </ul>
-            <button class="btn-acessibilidade" onclick="alternarContraste()" aria-label="Alternar Alto Contraste">Acessibilidade ♿</button>
+            <button class="btn-acessibilidade" onclick="alternarContraste()">Acessibilidade ♿</button>
         </nav>
     </header>
 
     <main>
-        <!-- SEÇÃO 1: CONCEITO CIENTÍFICO (ÓPTICA) -->
-        <section id="conceito" aria-labelledby="tit-conceito">
-            <h2 id="tit-conceito">Tecnociência e Óptica Aplicada</h2>
+        <!-- SEÇÃO 1: CONCEITO E PLACA SOLAR -->
+        <section id="conceito">
+            <h2>Tecnociência e Óptica Aplicada</h2>
             <div class="grid-concept">
                 <div>
-                    <p>O <strong>Disco de Newton</strong> prova que a luz branca do Sol é a soma de todas as cores do espectro visível. Quando girado rapidamente, as cores se misturam e vemos o branco refletido.</p>
-                    <p><strong>A Analogia Inversa:</strong> Se a união de todas as cores reflete a luz branca, um material que absorbs todas as cores sem refletir nenhuma assume a cor <strong>PRETA</strong>. É por isso que os coletores solares da piscina do CEP devem ser pretos foscos.</p>
-                    <p>Ao reter todo o espectro cromático da radiação solar (absorção máxima de fótons), as placas convertem eficientemente a energia luminosa em energia térmica, aquecendo a água da piscina sem gastar eletricidade da rede.</p>
+                    <p>O <strong>Disco de Newton</strong> prova que a união de todas as cores resulta na luz branca refletida.</p>
+                    <p><strong>A lógica inversa para engenharia térmica:</strong> Se a soma de todas as cores reflete o branco, uma superfície que absorve todas as cores sem refletir nenhuma assume a cor <strong>PRETA</strong>.</p>
+                    <p>É por isso que os coletores do CEP usam placas preto fosco. Elas retêm todo o espectro cromático da radiação solar, alcançando máxima eficiência térmica para aquecer a água de forma sustentável.</p>
                 </div>
-                <div class="painel-container" style="text-align: center;">
-                    <img src="https://wikimedia.org" 
-                         alt="Foto real de placas coletoras solares pretas instaladas em um telhado"
-                         style="width: 100%; max-width: 360px; height: auto; border-radius: 8px; border: 4px solid #0056b3; box-shadow: 0 6px 12px rgba(0,0,0,0.15);">
+                <div class="foto-container">
+                    <!-- Foto real de um sistema de aquecimento solar para piscinas -->
+                    <img class="imagem-renderizada" 
+                         src="https://unsplash.com" 
+                         alt="Placas coletoras de energia solar instaladas de forma sustentável">
                 </div>
             </div>
         </section>
 
         <!-- SEÇÃO 2: SIMULADOR INTERATIVO -->
-        <section id="simulador" aria-labelledby="tit-simulador">
-            <h2 id="tit-simulador">Simulador: O Efeito Newton Reverso</h2>
-            <p>Clique no botão abaixo para simular a rotação do Disco de Newton e veja como a fusão das cores se relaciona com a retenção de calor nas placas da nossa piscina térmica.</p>
-            
+        <section id="simulador">
+            <h2>Simulador: O Efeito Newton Reverso</h2>
+            <p>Clique no botão abaixo para rodar o experimento óptico. Repare como as cores se fundem imitando o comportamento da luz.</p>
             <div class="simulador-box">
-                <div id="disco" class="disco-visual" role="img" aria-label="Disco de Newton com as sete cores do arco-íris"></div>
-                <button class="btn-simular" id="btnGirar" onclick="executarSimulacao()">Girar Disco / Iniciar Absorção</button>
-                <div class="resultado-simulacao" id="resultado" aria-live="polite">Clique no botão para iniciar o teste físico.</div>
+                <div class="disco-wrapper">
+                    <div id="disco" class="disco-visual"></div>
+                </div>
+                <button class="btn-simular" id="btnGirar" onclick="executarSimulacao()">Girar Disco / Testar Absorção</button>
+                <div class="resultado-simulacao" id="resultado">Clique no botão para iniciar o teste físico.</div>
             </div>
         </section>
 
-        <!-- SEÇÃO 3: ROBÓTICA E AUTOMAÇÃO -->
-        <section id="automacao" aria-labelledby="tit-automacao">
-            <h2 id="tit-automacao">Robótica e Programação Sustentável</h2>
-            <p>Para garantir que o sistema funcione de forma totalmente autônoma e inteligente, projetamos uma lógica de controle microcontrolada (via Arduino/ESP32) acionando sensores e atuadores:</p>
-            
-            <div class="fluxograma" role="region" aria-label="Fluxograma de Automação">
-                <h3>Lógica do Algoritmo de Aquecimento:</h3>
-                <div class="fluxo-passo">1. <strong>Sensor de Temp. 1 (Placa Coletora):</strong> Mede o calor retido pela superfície preta.</div>
-                <div class="fluxo-passo">2. <strong>Sensor de Temp. 2 (Piscina):</strong> Mede a temperatura atual da água do CEP.</div>
-                <div class="fluxo-passo">3. <strong>Condicional (Programação):</strong> Se a temperatura da placa for 4°C MAIOR que a da piscina...</div>
-                <div class="fluxo-passo">4. <strong>Atuador (Relé/Bomba):</strong> O sistema liga a bomba d'água para circular a água fria pelas placas quentes.</div>
-                <div class="fluxo-passo">5. <strong>Segurança:</strong> Se as temperaturas se igualarem, a bomba desliga para evitar o resfriamento inverso da piscina.</div>
+        <!-- SEÇÃO 3: AUTOMAÇÃO E ROBÓTICA -->
+        <section id="automacao">
+            <h2>Robótica e Automação</h2>
+            <p>Abaixo está o algoritmo lógico programado no microcontrolador da piscina do CEP para evitar o desperdício de energia:</p>
+            <div class="fluxograma">
+                <div class="fluxo-passo">1. <strong>Sensores NTC:</strong> Monitoram em tempo real a temperatura das placas pretas e da água.</div>
+                <div class="fluxo-passo">2. <strong>Condicional Computacional:</strong> Se o calor da placa for muito maior do que o da piscina, o sistema ativa o Relé.</div>
+                <div class="fluxo-passo">3. <strong>Atuador:</strong> A bomba hidráulica liga, empurrando a água para circular e ganhar calor nas placas solares.</div>
             </div>
-        </section>
-
-        <!-- SEÇÃO 4: IMPACTO SOCIAL -->
-        <section id="impacto" aria-labelledby="tit-impacto">
-            <h2 id="tit-impacto">Inovação e Impacto Social</h2>
-            <p>Este projeto traz um impacto duplo para a comunidade do CEP:</p>
-            <ul>
-                <li><strong>Sustentabilidade Energética:</strong> Redução drástica do uso de aquecedores a gás ou resistências elétricas de alta potência, diminuindo a pegada de carbono da instituição.</li>
-                <li><strong>Inclusão Social pela Acessibilidade:</strong> Este site foi projetado com código limpo, sem barreiras de navegação para leitores de tela e com opções de alto contraste, garantindo que toda a comunidade escolar possa estudar e auditar o projeto de automação de forma igualitária.</li>
-            </ul>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2026 Projeto Integrador CEP - Equipe Disco de Newton. Desenvolvido com HTML, CSS e JavaScript acessíveis.</p>
+        <p>&copy; 2026 Projeto Integrador CEP - Equipe Disco de Newton. Foco em Sustentabilidade e Óptica Aplicada.</p>
     </footer>
 
-    <script src="script.js"></script>
-</body>
-</html>
+    <!-- LOGICA SCRIPT -->
+    <script>
+        function alternarContraste() {
+            document.body.classList.toggle('alto-contraste');
+        }
+
+        function executarSimulacao() {
+            const disco = document.getElementById('disco');
+            const resultado = document.getElementById('resultado');
+            const btn = document.getElementById('btnGirar');
+
+            btn.disabled = true;
+            resultado.textContent = "Girando e mesclando o espectro de cores...";
+            disco.classList.add('disco-girando');
+
+            setTimeout(() => {
