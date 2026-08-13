@@ -10,7 +10,7 @@ if (localStorage.getItem('altoContraste') === 'true') {
 }
 
 
-// --- LÓGICA DO SIMULADOR INTERATIVO (CORRIGIDA) ---
+// --- LÓGICA DO SIMULADOR INTERATIVO ---
 function executarSimulacao() {
     const disco = document.getElementById('disco');
     const resultado = document.getElementById('resultado');
@@ -37,4 +37,5 @@ function executarSimulacao() {
 
     }, 2500);
 }
+
 
