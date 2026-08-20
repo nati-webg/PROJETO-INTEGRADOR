@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EcoTerm CEP - Aquecimento Solar & Óptica</title>
     <style>
-        /* --- CONFIGURAÇÕES GERAIS E ACESSIBILIDADE --- */
         :root {
             --bg-primary: #ffffff;
             --bg-secondary: #f4f4f9;
@@ -125,7 +124,6 @@
             align-items: center;
         }
 
-        /* --- FOTOS DO SITE (MÁXIMA COMPATIBILIDADE) --- */
         .foto-container {
             text-align: center;
         }
@@ -144,7 +142,6 @@
             .nav-container { flex-direction: column; gap: 1rem; }
         }
 
-        /* --- ESTILIZAÇÃO DO SIMULADOR (DISCO) --- */
         .simulador-box {
             text-align: center;
             padding: 2rem;
@@ -192,7 +189,6 @@
         .btn-simular:disabled { opacity: 0.6; cursor: not-allowed; }
         .resultado-simulacao { margin-top: 1.5rem; font-weight: bold; font-size: 1.2rem; }
 
-        /* --- AUTOMAÇÃO --- */
         .fluxograma {
             background-color: var(--bg-secondary);
             padding: 1.5rem;
@@ -205,7 +201,6 @@
 </head>
 <body>
 
-    <!-- CABEÇALHO -->
     <header>
         <nav class="nav-container" aria-label="Navegação Principal">
             <div class="logo">EcoTerm CEP ☀️</div>
@@ -219,7 +214,6 @@
     </header>
 
     <main>
-        <!-- SEÇÃO 1: CONCEITO E PLACA SOLAR -->
         <section id="conceito">
             <h2>Tecnociência e Óptica Aplicada</h2>
             <div class="grid-concept">
@@ -229,15 +223,13 @@
                     <p>É por isso que os coletores do CEP usam placas preto fosco. Elas retêm todo o espectro cromático da radiação solar, alcançando máxima eficiência térmica para aquecer a água de forma sustentável.</p>
                 </div>
                 <div class="foto-container">
-                    <!-- IMAGEM CORRIGIDA - Link direto para foto de painéis solares -->
                     <img class="imagem-renderizada" 
-                         src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&auto=format&fit=crop" 
+                         src="https://picsum.photos/seed/solarpanels/600/400" 
                          alt="Placas coletoras de energia solar instaladas de forma sustentável">
                 </div>
             </div>
         </section>
 
-        <!-- SEÇÃO 2: SIMULADOR INTERATIVO -->
         <section id="simulador">
             <h2>Simulador: O Efeito Newton Reverso</h2>
             <p>Clique no botão abaixo para rodar o experimento óptico. Repare como as cores se fundem imitando o comportamento da luz.</p>
@@ -250,7 +242,6 @@
             </div>
         </section>
 
-        <!-- SEÇÃO 3: AUTOMAÇÃO E ROBÓTICA -->
         <section id="automacao">
             <h2>Robótica e Automação</h2>
             <p>Abaixo está o algoritmo lógico programado no microcontrolador da piscina do CEP para evitar o desperdício de energia:</p>
@@ -266,7 +257,6 @@
         <p>&copy; 2026 Projeto Integrador CEP - Equipe Disco de Newton. Foco em Sustentabilidade e Óptica Aplicada.</p>
     </footer>
 
-    <!-- LOGICA SCRIPT -->
     <script>
         function alternarContraste() {
             document.body.classList.toggle('alto-contraste');
