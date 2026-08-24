@@ -1,1035 +1,1915 @@
-// =========================================================
-// DISCO DE NEWTON — INTERAÇÕES
-// Projeto Integrador
-// Física + Tecnociência + Programação
-// =========================================================
+/* =========================================================
+   DISCO DE NEWTON - STYLE.CSS
+   Projeto Integrador
+========================================================= */
 
+/* -------------------------
+   FONTES E VARIÁVEIS
+------------------------- */
 
-// =========================================================
-// ACESSIBILIDADE
-// =========================================================
+:root {
+    --roxo: #7b2cff;
+    --rosa: #ff3d81;
+    --azul: #287bff;
+    --ciano: #00c9ff;
+    --amarelo: #ffd43b;
+    --laranja: #ff8a00;
+    --verde: #20c997;
 
-const body = document.body;
-const btnContraste = document.getElementById("btnContraste");
+    --fundo: #f7f5ff;
+    --branco: #ffffff;
+    --texto: #24213a;
+    --texto-claro: #625e78;
 
-function atualizarContraste() {
+    --sombra: 0 12px 35px rgba(72, 43, 120, 0.12);
+    --raio: 24px;
+}
 
-    const ativo =
-        body.classList.contains("alto-contraste");
+/* -------------------------
+   MODO ALTO CONTRASTE
+------------------------- */
 
-    btnContraste.setAttribute(
-        "aria-pressed",
-        String(ativo)
-    );
-
-    btnContraste.textContent =
-        ativo
-            ? "☀️ Contraste normal"
-            : "♿ Alto contraste";
-
-    localStorage.setItem(
-        "altoContraste",
-        String(ativo)
-    );
+.alto-contraste {
+    --fundo: #000000;
+    --branco: #000000;
+    --texto: #ffffff;
+    --texto-claro: #ffffff;
+    --roxo: #ffff00;
+    --rosa: #ffff00;
+    --azul: #ffff00;
+    --ciano: #ffff00;
+    --amarelo: #ffff00;
+    --laranja: #ffff00;
+    --verde: #ffff00;
 }
 
 
-btnContraste.addEventListener("click", () => {
+/* -------------------------
+   RESET
+------------------------- */
 
-    body.classList.toggle("alto-contraste");
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-    atualizarContraste();
+html {
+    scroll-behavior: smooth;
+}
 
-});
+body {
+    font-family: 'Fredoka', 'Segoe UI', sans-serif;
+    background:
+        radial-gradient(circle at 10% 10%, rgba(255, 61, 129, 0.10), transparent 25%),
+        radial-gradient(circle at 90% 20%, rgba(40, 123, 255, 0.10), transparent 25%),
+        radial-gradient(circle at 50% 90%, rgba(123, 44, 255, 0.10), transparent 30%),
+        var(--fundo);
 
+    color: var(--texto);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
 
-if (
-    localStorage.getItem("altoContraste") === "true"
-) {
+    transition:
+        background 0.3s ease,
+        color 0.3s ease;
+}
 
-    body.classList.add("alto-contraste");
+a {
+    text-decoration: none;
+}
 
+button {
+    font-family: inherit;
+}
+
+img {
+    max-width: 100%;
+    display: block;
 }
 
 
-atualizarContraste();
-
-
-// =========================================================
-// MENU PARA CELULAR
-// =========================================================
-
-const menuToggle =
-    document.getElementById("menuToggle");
-
-const navMenu =
-    document.getElementById("navMenu");
-
-
-menuToggle.addEventListener("click", () => {
-
-    const aberto =
-        navMenu.classList.toggle("open");
-
-    menuToggle.setAttribute(
-        "aria-expanded",
-        String(aberto)
-    );
-
-});
-
-
-document
-    .querySelectorAll(".nav-menu a")
-    .forEach(link => {
-
-        link.addEventListener("click", () => {
-
-            navMenu.classList.remove("open");
-
-            menuToggle.setAttribute(
-                "aria-expanded",
-                "false"
-            );
-
-        });
-
-    });
-
-
-// =========================================================
-// CORES DO DISCO
-// =========================================================
-
-const colorInfo =
-    document.getElementById("colorInfo");
-
-
-document
-    .querySelectorAll(".color-labels button")
-    .forEach(button => {
-
-        button.addEventListener("click", () => {
-
-            const nome =
-                button.dataset.color;
-
-            const info =
-                button.dataset.info;
-
-            colorInfo.innerHTML =
-                `<strong>${nome}:</strong> ${info}`;
-
-        });
-
-    });
-
-
-// =========================================================
-// PRISMA / ESPECTRO
-// =========================================================
-
-const prismButton =
-    document.getElementById("prismButton");
-
-const spectrum =
-    document.getElementById("spectrum");
-
-const prismHint =
-    document.getElementById("prismHint");
-
-
-prismButton.addEventListener("click", () => {
-
-    const ativo =
-        spectrum.classList.toggle("active");
-
-
-    if (ativo) {
-
-        prismHint.textContent =
-            "✨ A luz foi representada como separada em diferentes componentes do espectro visível.";
-
-        prismButton.setAttribute(
-            "aria-pressed",
-            "true"
-        );
-
-    } else {
-
-        prismHint.textContent =
-            "👆 Clique novamente no prisma para visualizar a decomposição da luz.";
-
-        prismButton.setAttribute(
-            "aria-pressed",
-            "false"
-        );
-
-    }
-
-});
-
-
-// =========================================================
-// SIMULADOR DO DISCO DE NEWTON
-// =========================================================
-
-const disco =
-    document.getElementById("disco");
-
-const discoWrapper =
-    document.querySelector(".disco-wrapper");
-
-const speedRange =
-    document.getElementById("speedRange");
-
-const speedValue =
-    document.getElementById("speedValue");
-
-const speedLabel =
-    document.getElementById("speedLabel");
-
-const resultadoTitulo =
-    document.getElementById("resultadoTitulo");
-
-const resultado =
-    document.getElementById("resultado");
-
-const statusIcon =
-    document.getElementById("statusIcon");
-
-const btnGirar =
-    document.getElementById("btnGirar");
-
-const btnPausar =
-    document.getElementById("btnPausar");
-
-const btnResetar =
-    document.getElementById("btnResetar");
-
-
-let girando = false;
-
-let velocidade = 0;
-
-
-// ---------------------------------------------------------
-// ATUALIZAR VELOCIDADE
-// ---------------------------------------------------------
-
-function atualizarDisco() {
-
-    velocidade =
-        Number(speedRange.value);
-
-
-    speedValue.textContent =
-        `${velocidade}%`;
-
-
-    // -----------------------------------------
-    // DISCO PARADO
-    // -----------------------------------------
-
-    if (velocidade === 0) {
-
-        disco.style.animationDuration =
-            "0s";
-
-        discoWrapper.classList.remove(
-            "fast-effect",
-            "max-effect"
-        );
-
-        speedLabel.textContent =
-            "DISCO PARADO";
-
-        resultadoTitulo.textContent =
-            "Disco parado";
-
-        resultado.textContent =
-            "Aumente a velocidade para iniciar a experiência.";
-
-        statusIcon.textContent =
-            "○";
-
-        return;
-    }
-
-
-    // -----------------------------------------
-    // VELOCIDADE DA ANIMAÇÃO
-    // -----------------------------------------
-
-    const duracao =
-        Math.max(
-            0.08,
-            1.5 - (velocidade / 100) * 1.38
-        );
-
-
-    disco.style.animationDuration =
-        `${duracao}s`;
-
-
-    // -----------------------------------------
-    // BAIXA VELOCIDADE
-    // -----------------------------------------
-
-    if (velocidade < 35) {
-
-        discoWrapper.classList.remove(
-            "fast-effect",
-            "max-effect"
-        );
-
-        speedLabel.textContent =
-            "BAIXA VELOCIDADE";
-
-        resultadoTitulo.textContent =
-            "🌈 Cores bem definidas";
-
-        resultado.textContent =
-            "Os setores coloridos ainda podem ser percebidos com bastante clareza.";
-
-        statusIcon.textContent =
-            "🟡";
-
-    }
-
-
-    // -----------------------------------------
-    // VELOCIDADE MÉDIA
-    // -----------------------------------------
-
-    else if (velocidade < 70) {
-
-        discoWrapper.classList.add(
-            "fast-effect"
-        );
-
-        discoWrapper.classList.remove(
-            "max-effect"
-        );
-
-        speedLabel.textContent =
-            "VELOCIDADE MÉDIA";
-
-        resultadoTitulo.textContent =
-            "👁️ Maior integração visual";
-
-        resultado.textContent =
-            "As cores passam rapidamente diante dos olhos e tendem a parecer mais integradas.";
-
-        statusIcon.textContent =
-            "🔵";
-
-    }
-
-
-    // -----------------------------------------
-    // ALTA VELOCIDADE
-    // -----------------------------------------
-
-    else {
-
-        discoWrapper.classList.add(
-            "max-effect"
-        );
-
-        speedLabel.textContent =
-            "ALTA VELOCIDADE";
-
-        resultadoTitulo.textContent =
-            "✨ Aparência mais clara";
-
-        resultado.textContent =
-            "A simulação aproxima visualmente a integração das cores. Em um disco real, o resultado pode ser branco-acinzentado.";
-
-        statusIcon.textContent =
-            "⚪";
-
-    }
-
-
-    // -----------------------------------------
-    // CONTINUAR GIRANDO
-    // -----------------------------------------
-
-    if (girando) {
-
-        disco.classList.add(
-            "disco-girando"
-        );
-
-    }
-
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(15px);
+
+    border-bottom: 2px solid rgba(123, 44, 255, 0.10);
+
+    box-shadow:
+        0 5px 25px rgba(50, 30, 100, 0.08);
+}
+
+.alto-contraste .header {
+    background: #000000;
+    border-bottom: 2px solid #ffff00;
 }
 
 
-// ---------------------------------------------------------
-// INICIAR
-// ---------------------------------------------------------
+.nav-container {
+    max-width: 1250px;
+    margin: auto;
 
-function iniciarDisco() {
+    min-height: 80px;
 
-    if (velocidade === 0) {
+    padding: 12px 25px;
 
-        speedRange.value = 70;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-        atualizarDisco();
-
-    }
-
-
-    girando = true;
-
-
-    disco.classList.add(
-        "disco-girando"
-    );
-
-
-    resultadoTitulo.textContent =
-        "🌀 Disco em movimento";
-
-    resultado.textContent =
-        "Observe as cores enquanto aumentamos a velocidade de rotação.";
-
-    statusIcon.textContent =
-        "●";
-
-
-    btnGirar.textContent =
-        "🔄 Girando...";
-
+    gap: 20px;
 }
 
 
-// ---------------------------------------------------------
-// PAUSAR
-// ---------------------------------------------------------
+/* LOGO */
 
-function pausarDisco() {
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 
-    girando = false;
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.45rem;
+    font-weight: 800;
 
+    color: var(--roxo);
 
-    disco.classList.remove(
-        "disco-girando"
+    white-space: nowrap;
+}
+
+.logo span {
+    background: linear-gradient(
+        90deg,
+        #7b2cff,
+        #ff3d81,
+        #ff8a00
     );
 
+    -webkit-background-clip: text;
+    background-clip: text;
 
-    statusIcon.textContent =
-        "Ⅱ";
-
-
-    btnGirar.textContent =
-        "▶ Girar";
-
-
-    if (velocidade > 0) {
-
-        resultadoTitulo.textContent =
-            "⏸ Experimento pausado";
-
-        resultado.textContent =
-            "Altere a velocidade ou clique em Girar para continuar.";
-
-    }
-
+    color: transparent;
 }
 
 
-// ---------------------------------------------------------
-// REINICIAR
-// ---------------------------------------------------------
+/* MENU */
 
-function resetarDisco() {
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 6px;
 
-    girando = false;
+    list-style: none;
+}
 
+.nav-menu a {
+    display: block;
 
-    disco.classList.remove(
-        "disco-girando"
+    padding: 9px 13px;
+
+    color: var(--texto);
+
+    font-size: 0.95rem;
+    font-weight: 600;
+
+    border-radius: 12px;
+
+    transition: 0.25s ease;
+}
+
+.nav-menu a:hover,
+.nav-menu a:focus {
+    color: white;
+
+    background: linear-gradient(
+        135deg,
+        var(--roxo),
+        var(--rosa)
     );
 
+    transform: translateY(-2px);
 
-    discoWrapper.classList.remove(
-        "fast-effect",
-        "max-effect"
-    );
-
-
-    speedRange.value = 0;
-
-
-    btnGirar.textContent =
-        "▶ Girar";
-
-
-    atualizarDisco();
-
+    outline: none;
 }
 
 
-// ---------------------------------------------------------
-// EVENTOS DOS BOTÕES
-// ---------------------------------------------------------
+/* BOTÃO CONTRASTE */
 
-btnGirar.addEventListener(
-    "click",
-    iniciarDisco
-);
+.btn-acessibilidade {
+    border: none;
+
+    padding: 10px 15px;
+
+    border-radius: 14px;
+
+    background: linear-gradient(
+        135deg,
+        var(--roxo),
+        var(--azul)
+    );
+
+    color: white;
+
+    font-size: 0.9rem;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 15px rgba(123, 44, 255, 0.25);
+
+    transition: 0.25s ease;
+}
+
+.btn-acessibilidade:hover {
+    transform: translateY(-2px) scale(1.03);
+}
 
 
-btnPausar.addEventListener(
-    "click",
-    pausarDisco
-);
+/* =========================================================
+   MAIN
+========================================================= */
+
+main {
+    width: 100%;
+    max-width: 1250px;
+
+    margin: auto;
+
+    padding: 30px 20px 70px;
+}
 
 
-btnResetar.addEventListener(
-    "click",
-    resetarDisco
-);
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+    min-height: 620px;
+
+    margin-bottom: 35px;
+
+    padding: 60px 55px;
+
+    border-radius: 35px;
+
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+
+    align-items: center;
+
+    gap: 40px;
+
+    position: relative;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6a20e8 0%,
+            #8d35f5 35%,
+            #ff3d81 75%,
+            #ff8a00 100%
+        );
+
+    color: white;
+
+    box-shadow:
+        0 25px 60px rgba(123, 44, 255, 0.25);
+}
 
 
-speedRange.addEventListener(
-    "input",
-    () => {
+/* efeitos */
 
-        atualizarDisco();
+.hero::before {
+    content: "";
 
-        if (
-            velocidade > 0 &&
-            girando
-        ) {
+    position: absolute;
 
-            disco.classList.add(
-                "disco-girando"
-            );
+    width: 300px;
+    height: 300px;
 
-        }
+    border-radius: 50%;
 
+    background: rgba(255, 255, 255, 0.10);
+
+    top: -120px;
+    right: -80px;
+}
+
+.hero::after {
+    content: "";
+
+    position: absolute;
+
+    width: 200px;
+    height: 200px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.08);
+
+    bottom: -100px;
+    left: -50px;
+}
+
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+
+.tag {
+    display: inline-block;
+
+    padding: 8px 15px;
+
+    margin-bottom: 18px;
+
+    border-radius: 50px;
+
+    background: rgba(255, 255, 255, 0.20);
+
+    border: 1px solid rgba(255, 255, 255, 0.30);
+
+    font-size: 0.85rem;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+
+.hero h1 {
+    font-family: 'Baloo 2', cursive;
+
+    font-size: clamp(3rem, 6vw, 5.5rem);
+
+    line-height: 0.95;
+
+    margin-bottom: 25px;
+
+    font-weight: 800;
+}
+
+.hero h1 span {
+    display: block;
+
+    color: #ffe45c;
+
+    text-shadow:
+        3px 3px 0 rgba(0, 0, 0, 0.10);
+}
+
+
+.hero-subtitle {
+    max-width: 600px;
+
+    color: rgba(255, 255, 255, 0.95);
+
+    font-size: 1.25rem;
+
+    margin-bottom: 30px;
+}
+
+
+.hero-buttons {
+    display: flex;
+
+    gap: 14px;
+
+    flex-wrap: wrap;
+}
+
+
+.btn-primary,
+.btn-secondary {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 14px 22px;
+
+    border-radius: 15px;
+
+    font-weight: 700;
+
+    transition: 0.25s ease;
+}
+
+
+.btn-primary {
+    background: white;
+    color: var(--roxo);
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.15);
+
+    color: white;
+
+    border: 2px solid rgba(255, 255, 255, 0.45);
+}
+
+.btn-primary:hover,
+.btn-secondary:hover {
+    transform: translateY(-4px);
+}
+
+
+/* =========================================================
+   DISCO HERO
+========================================================= */
+
+.hero-disc {
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-height: 400px;
+
+    z-index: 2;
+}
+
+
+.disco-hero {
+    width: 330px;
+    height: 330px;
+
+    border-radius: 50%;
+
+    background: conic-gradient(
+        #ef3340 0deg 51deg,
+        #ff8a00 51deg 102deg,
+        #ffe600 102deg 154deg,
+        #2ecc71 154deg 205deg,
+        #00b8ff 205deg 257deg,
+        #4b5cff 257deg 308deg,
+        #9b35ff 308deg 360deg
+    );
+
+    border: 12px solid white;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.25);
+
+    animation: flutuarDisco 4s ease-in-out infinite;
+}
+
+
+.disco-hero::after {
+    content: "";
+
+    position: absolute;
+
+    width: 42px;
+    height: 42px;
+
+    background: white;
+
+    border-radius: 50%;
+
+    border: 8px solid #333;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+}
+
+
+@keyframes flutuarDisco {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
     }
-);
 
-
-// =========================================================
-// MODAIS DOS CONCEITOS
-// =========================================================
-
-const modal =
-    document.getElementById("conceptModal");
-
-const modalTitle =
-    document.getElementById("modalTitle");
-
-const modalText =
-    document.getElementById("modalText");
-
-const modalClose =
-    document.getElementById("modalClose");
-
-
-document
-    .querySelectorAll(".concept-card")
-    .forEach(card => {
-
-        card.addEventListener("click", () => {
-
-            modalTitle.textContent =
-                card.dataset.modalTitle;
-
-            modalText.textContent =
-                card.dataset.modalText;
-
-            modal.classList.add("active");
-
-            modal.setAttribute(
-                "aria-hidden",
-                "false"
-            );
-
-            modalClose.focus();
-
-        });
-
-    });
-
-
-function fecharModal() {
-
-    modal.classList.remove(
-        "active"
-    );
-
-    modal.setAttribute(
-        "aria-hidden",
-        "true"
-    );
+    50% {
+        transform: translateY(-15px) rotate(8deg);
+    }
 
 }
 
 
-modalClose.addEventListener(
-    "click",
-    fecharModal
-);
+.hero-sparkle {
+    position: absolute;
+
+    color: #ffe45c;
+
+    font-size: 2rem;
+
+    animation: brilho 2s infinite ease-in-out;
+}
+
+.sparkle-1 {
+    top: 15%;
+    right: 10%;
+}
+
+.sparkle-2 {
+    bottom: 15%;
+    left: 12%;
+
+    animation-delay: 0.5s;
+}
+
+.sparkle-3 {
+    top: 30%;
+    left: 5%;
+
+    animation-delay: 1s;
+}
 
 
-modal.addEventListener(
-    "click",
-    event => {
+@keyframes brilho {
 
-        if (
-            event.target === modal
-        ) {
-
-            fecharModal();
-
-        }
-
-    }
-);
-
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if (
-            event.key === "Escape" &&
-            modal.classList.contains("active")
-        ) {
-
-            fecharModal();
-
-        }
-
-    }
-);
-
-
-// =========================================================
-// QUIZ
-// =========================================================
-
-const perguntas = [
-
-    {
-        pergunta:
-            "O que acontece com a percepção das cores quando o Disco de Newton gira rapidamente?",
-
-        opcoes: [
-
-            "As cores tendem a parecer mais integradas visualmente.",
-
-            "As cores deixam de refletir qualquer luz.",
-
-            "O disco obrigatoriamente fica preto.",
-
-            "A luz desaparece."
-
-        ],
-
-        correta: 0,
-
-        explicacao:
-            "A rotação rápida faz os setores coloridos passarem sucessivamente diante dos olhos, contribuindo para uma percepção mais integrada."
-    },
-
-
-    {
-        pergunta:
-            "O que um prisma pode fazer com a luz branca?",
-
-        opcoes: [
-
-            "Destruí-la.",
-
-            "Separá-la em diferentes componentes do espectro.",
-
-            "Transformá-la diretamente em calor.",
-
-            "Torná-la invisível."
-
-        ],
-
-        correta: 1,
-
-        explicacao:
-            "A dispersão pode separar componentes da luz, permitindo observar diferentes regiões do espectro visível."
-    },
-
-
-    {
-        pergunta:
-            "Qual conceito está relacionado à percepção de estímulos visuais apresentados rapidamente em sequência?",
-
-        opcoes: [
-
-            "Convecção.",
-
-            "Refração sonora.",
-
-            "Percepção visual.",
-
-            "Inércia térmica."
-
-        ],
-
-        correta: 2,
-
-        explicacao:
-            "A percepção visual está relacionada à forma como nosso sistema visual processa estímulos apresentados rapidamente."
-    },
-
-
-    {
-        pergunta:
-            "Por que um Disco de Newton feito com pigmentos pode parecer acinzentado em vez de branco puro?",
-
-        opcoes: [
-
-            "Porque os pigmentos absorvem parte da luz.",
-
-            "Porque o olho humano não percebe nenhuma cor.",
-
-            "Porque o disco precisa ser preto.",
-
-            "Porque o movimento elimina a luz."
-
-        ],
-
-        correta: 0,
-
-        explicacao:
-            "Os pigmentos absorvem parte da luz incidente, por isso o resultado de um disco real pode parecer acinzentado."
+    0%,
+    100% {
+        opacity: 0.4;
+        transform: scale(0.8);
     }
 
-];
-
-
-let perguntaAtual = 0;
-
-let pontuacao = 0;
-
-let respondeu = false;
-
-
-const quizQuestion =
-    document.getElementById(
-        "quizQuestion"
-    );
-
-const quizOptions =
-    document.getElementById(
-        "quizOptions"
-    );
-
-const quizFeedback =
-    document.getElementById(
-        "quizFeedback"
-    );
-
-const quizNext =
-    document.getElementById(
-        "quizNext"
-    );
-
-const quizProgress =
-    document.getElementById(
-        "quizProgress"
-    );
-
-const quizBar =
-    document.getElementById(
-        "quizBar"
-    );
-
-
-// ---------------------------------------------------------
-// CARREGAR PERGUNTA
-// ---------------------------------------------------------
-
-function carregarPergunta() {
-
-    respondeu = false;
-
-    quizNext.disabled = true;
-
-    quizFeedback.textContent = "";
-
-    quizFeedback.className =
-        "quiz-feedback";
-
-
-    const pergunta =
-        perguntas[perguntaAtual];
-
-
-    quizProgress.textContent =
-        `Questão ${perguntaAtual + 1} de ${perguntas.length}`;
-
-
-    quizBar.style.width =
-        `${((perguntaAtual + 1) / perguntas.length) * 100}%`;
-
-
-    quizQuestion.textContent =
-        pergunta.pergunta;
-
-
-    quizOptions.innerHTML =
-        "";
-
-
-    pergunta.opcoes.forEach(
-        (opcao, indice) => {
-
-            const button =
-                document.createElement(
-                    "button"
-                );
-
-
-            button.className =
-                "quiz-option";
-
-
-            button.type =
-                "button";
-
-
-            button.textContent =
-                opcao;
-
-
-            button.addEventListener(
-                "click",
-                () => responder(
-                    indice,
-                    button
-                )
-            );
-
-
-            quizOptions.appendChild(
-                button
-            );
-
-        }
-    );
-
-
-    quizNext.textContent =
-        perguntaAtual === perguntas.length - 1
-            ? "Ver resultado →"
-            : "Próxima →";
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
 
 }
 
 
-// ---------------------------------------------------------
-// RESPONDER
-// ---------------------------------------------------------
+/* =========================================================
+   SEÇÕES
+========================================================= */
 
-function responder(
-    indice,
-    buttonEscolhido
-) {
+.section-card {
+    background: var(--branco);
 
-    if (respondeu) {
-        return;
-    }
+    border-radius: var(--raio);
 
+    padding: 45px;
 
-    respondeu = true;
+    margin-bottom: 30px;
 
+    box-shadow: var(--sombra);
 
-    const pergunta =
-        perguntas[perguntaAtual];
+    border: 2px solid rgba(123, 44, 255, 0.06);
 
-
-    const botoes =
-        document.querySelectorAll(
-            ".quiz-option"
-        );
+    position: relative;
+    overflow: hidden;
+}
 
 
-    botoes.forEach(
-        (button, i) => {
+.section-card::before {
+    content: "";
 
-            button.disabled = true;
+    position: absolute;
+
+    width: 130px;
+    height: 130px;
+
+    border-radius: 50%;
+
+    background: rgba(123, 44, 255, 0.05);
+
+    right: -50px;
+    top: -50px;
+}
 
 
-            if (
-                i === pergunta.correta
-            ) {
+/* TÍTULOS */
 
-                button.classList.add(
-                    "correct"
-                );
+.section-title {
+    display: flex;
 
-            }
+    align-items: center;
 
-        }
+    gap: 18px;
+
+    margin-bottom: 30px;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+.section-number {
+    min-width: 58px;
+    height: 58px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 18px;
+
+    background: linear-gradient(
+        135deg,
+        var(--roxo),
+        var(--rosa)
     );
 
+    color: white;
 
-    if (
-        indice === pergunta.correta
-    ) {
+    font-family: 'Baloo 2', cursive;
 
-        pontuacao++;
+    font-size: 1.4rem;
+
+    font-weight: 800;
+
+    box-shadow:
+        0 8px 20px rgba(123, 44, 255, 0.22);
+}
 
 
-        quizFeedback.textContent =
-            `✓ Correto! ${pergunta.explicacao}`;
+.mini-title {
+    display: block;
+
+    color: var(--rosa);
+
+    font-size: 0.8rem;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 2px;
+}
 
 
-        quizFeedback.classList.add(
-            "correct-feedback"
+h2 {
+    font-family: 'Baloo 2', cursive;
+
+    color: var(--texto);
+
+    font-size: clamp(2rem, 4vw, 3rem);
+
+    line-height: 1;
+
+    font-weight: 800;
+}
+
+
+p {
+    color: var(--texto-claro);
+
+    font-size: 1.08rem;
+
+    margin-bottom: 15px;
+}
+
+
+.section-intro {
+    max-width: 900px;
+
+    font-size: 1.18rem;
+
+    margin-bottom: 30px;
+}
+
+
+/* =========================================================
+   CONCEITO
+========================================================= */
+
+.content-grid {
+    display: grid;
+
+    grid-template-columns: 1.2fr 0.8fr;
+
+    gap: 45px;
+
+    align-items: center;
+}
+
+
+.text-content strong {
+    color: var(--roxo);
+}
+
+
+.info-highlight {
+    display: flex;
+
+    gap: 15px;
+
+    padding: 20px;
+
+    margin-top: 25px;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(123, 44, 255, 0.08),
+            rgba(255, 61, 129, 0.08)
         );
 
-    } else {
+    border-left: 5px solid var(--rosa);
+}
 
-        buttonEscolhido.classList.add(
-            "wrong"
+
+.highlight-icon {
+    font-size: 2rem;
+}
+
+
+.info-highlight p {
+    margin-bottom: 0;
+
+    font-size: 0.98rem;
+}
+
+
+/* VISUAL CARD */
+
+.visual-card {
+    min-height: 330px;
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eef0ff,
+            #fff0f6
         );
 
+    display: flex;
 
-        quizFeedback.textContent =
-            `✗ Quase! ${pergunta.explicacao}`;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 20px;
+
+    color: var(--roxo);
+
+    font-weight: 700;
+}
 
 
-        quizFeedback.classList.add(
-            "wrong-feedback"
-        );
+.mini-disc {
+    width: 230px;
+    height: 230px;
 
+    border-radius: 50%;
+
+    background: conic-gradient(
+        #ef3340 0deg 51deg,
+        #ff8a00 51deg 102deg,
+        #ffe600 102deg 154deg,
+        #2ecc71 154deg 205deg,
+        #00b8ff 205deg 257deg,
+        #4b5cff 257deg 308deg,
+        #9b35ff 308deg 360deg
+    );
+
+    border: 8px solid white;
+
+    box-shadow:
+        0 15px 30px rgba(0, 0, 0, 0.15);
+
+    animation:
+        girarSuave 12s linear infinite;
+}
+
+
+@keyframes girarSuave {
+
+    from {
+        transform: rotate(0);
     }
 
-
-    quizNext.disabled =
-        false;
+    to {
+        transform: rotate(360deg);
+    }
 
 }
 
 
-// ---------------------------------------------------------
-// PRÓXIMA PERGUNTA
-// ---------------------------------------------------------
+/* =========================================================
+   CORES
+========================================================= */
 
-quizNext.addEventListener(
-    "click",
-    () => {
-
-        if (!respondeu) {
-            return;
-        }
-
-
-        if (
-            perguntaAtual <
-            perguntas.length - 1
-        ) {
-
-            perguntaAtual++;
-
-            carregarPergunta();
-
-            return;
-
-        }
+.colorful-section {
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #fff9fd
+        );
+}
 
 
-        mostrarResultado();
+.color-cards {
+    display: grid;
 
+    grid-template-columns:
+        repeat(6, 1fr);
+
+    gap: 15px;
+
+    margin: 30px 0;
+}
+
+
+.color-card {
+    padding: 22px 12px;
+
+    text-align: center;
+
+    border-radius: 20px;
+
+    background: white;
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.07);
+
+    border-top: 6px solid;
+
+    transition: 0.25s ease;
+}
+
+
+.color-card:hover {
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+
+.color-card h3 {
+    font-family: 'Baloo 2', cursive;
+
+    font-size: 1.2rem;
+
+    margin: 5px 0;
+}
+
+
+.color-card p {
+    font-size: 0.85rem;
+
+    margin: 0;
+}
+
+
+.color-icon {
+    font-size: 2.5rem;
+}
+
+
+.red {
+    border-color: #ef3340;
+}
+
+.orange {
+    border-color: #ff8a00;
+}
+
+.yellow {
+    border-color: #ffd43b;
+}
+
+.green {
+    border-color: #20c997;
+}
+
+.blue {
+    border-color: #287bff;
+}
+
+.violet {
+    border-color: #8b35ff;
+}
+
+
+/* CAIXA CIÊNCIA */
+
+.science-box {
+    display: flex;
+
+    gap: 20px;
+
+    align-items: center;
+
+    padding: 25px;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eef4ff,
+            #f8efff
+        );
+
+    border: 2px solid rgba(123, 44, 255, 0.12);
+}
+
+
+.science-icon {
+    font-size: 3rem;
+}
+
+
+.science-box h3 {
+    font-family: 'Baloo 2', cursive;
+
+    color: var(--roxo);
+
+    font-size: 1.5rem;
+
+    margin-bottom: 5px;
+}
+
+
+.science-box p {
+    margin: 0;
+}
+
+
+/* =========================================================
+   SIMULADOR
+========================================================= */
+
+.experiment-section {
+    background:
+        radial-gradient(
+            circle at 90% 10%,
+            rgba(255, 61, 129, 0.08),
+            transparent 30%
+        ),
+        white;
+}
+
+
+.simulador-box {
+    position: relative;
+
+    padding: 45px 25px;
+
+    text-align: center;
+
+    border-radius: 28px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f3efff,
+            #fff0f7
+        );
+
+    border: 3px dashed var(--roxo);
+
+    overflow: hidden;
+}
+
+
+.simulation-status {
+    display: inline-block;
+
+    padding: 8px 16px;
+
+    border-radius: 50px;
+
+    background: var(--roxo);
+
+    color: white;
+
+    font-size: 0.8rem;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+
+/* DISCO PRINCIPAL */
+
+.disco-wrapper {
+    position: relative;
+
+    width: 260px;
+    height: 260px;
+
+    margin: 30px auto;
+}
+
+
+.disco-visual {
+    width: 260px;
+    height: 260px;
+
+    border-radius: 50%;
+
+    background: conic-gradient(
+        #ef3340 0deg 51deg,
+        #ff8a00 51deg 102deg,
+        #ffe600 102deg 154deg,
+        #20c997 154deg 205deg,
+        #00b8ff 205deg 257deg,
+        #4b5cff 257deg 308deg,
+        #9b35ff 308deg 360deg
+    );
+
+    border: 10px solid white;
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.18);
+
+    transition:
+        background 0.5s ease,
+        transform 0.3s ease;
+}
+
+
+.disco-center {
+    position: absolute;
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    border: 8px solid #333;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    pointer-events: none;
+}
+
+
+.disco-girando {
+    animation:
+        girar 0.15s linear infinite;
+}
+
+
+@keyframes girar {
+
+    to {
+        transform: rotate(360deg);
     }
-);
-
-
-// ---------------------------------------------------------
-// RESULTADO
-// ---------------------------------------------------------
-
-function mostrarResultado() {
-
-    quizQuestion.textContent =
-        `🎉 Você acertou ${pontuacao} de ${perguntas.length}!`;
-
-
-    quizOptions.innerHTML =
-        "";
-
-
-    quizFeedback.className =
-        "quiz-feedback result-feedback";
-
-
-    if (
-        pontuacao === perguntas.length
-    ) {
-
-        quizFeedback.textContent =
-            "🏆 Excelente! Você dominou os principais conceitos do Disco de Newton.";
-
-    }
-
-    else if (
-        pontuacao >= 2
-    ) {
-
-        quizFeedback.textContent =
-            "👏 Muito bem! Você já entendeu boa parte do conteúdo.";
-
-    }
-
-    else {
-
-        quizFeedback.textContent =
-            "🔎 Que tal revisar as seções de Física e visão humana e tentar novamente?";
-
-    }
-
-
-    quizNext.textContent =
-        "↻ Refazer quiz";
-
-
-    quizNext.disabled =
-        false;
-
-
-    quizNext.onclick =
-        reiniciarQuiz;
 
 }
 
 
-// ---------------------------------------------------------
-// REINICIAR QUIZ
-// ---------------------------------------------------------
+/* BOTÃO */
 
-function reiniciarQuiz() {
+.btn-simular {
+    border: none;
 
-    perguntaAtual = 0;
+    padding: 15px 30px;
 
-    pontuacao = 0;
+    border-radius: 16px;
 
-    quizNext.onclick = null;
+    background:
+        linear-gradient(
+            135deg,
+            var(--roxo),
+            var(--rosa)
+        );
 
-    carregarPergunta();
+    color: white;
+
+    font-size: 1.1rem;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 20px rgba(123, 44, 255, 0.25);
+
+    transition: 0.25s ease;
+}
+
+
+.btn-simular:hover {
+    transform: translateY(-3px) scale(1.03);
+}
+
+
+.btn-simular:disabled {
+    opacity: 0.6;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+
+.resultado-simulacao {
+    max-width: 800px;
+
+    margin: 25px auto 0;
+
+    padding: 18px;
+
+    border-radius: 16px;
+
+    background: white;
+
+    color: var(--texto);
+
+    font-size: 1rem;
+
+    box-shadow:
+        0 5px 15px rgba(0, 0, 0, 0.07);
+}
+
+
+.observation-box {
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    margin-top: 25px;
+
+    padding: 20px;
+
+    border-radius: 18px;
+
+    background: #fff9df;
+
+    border-left: 5px solid var(--amarelo);
+}
+
+
+.observation-icon {
+    font-size: 2.5rem;
+}
+
+
+.observation-box h3 {
+    font-family: 'Baloo 2', cursive;
+
+    font-size: 1.35rem;
+
+    color: #9a7200;
+}
+
+
+.observation-box p {
+    margin: 0;
+}
+
+
+/* =========================================================
+   FOTO DO EXPERIMENTO
+========================================================= */
+
+.photo-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 45px;
+
+    align-items: center;
+}
+
+
+.photo-container {
+    padding: 12px;
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--roxo),
+            var(--rosa),
+            var(--laranja)
+        );
+
+    box-shadow:
+        0 15px 35px rgba(123, 44, 255, 0.20);
+}
+
+
+.foto-experimento {
+    width: 100%;
+
+    max-height: 500px;
+
+    object-fit: cover;
+
+    border-radius: 17px;
+
+    background: #eee;
+}
+
+
+.photo-caption {
+    display: block;
+
+    color: white;
+
+    text-align: center;
+
+    padding: 12px 5px 4px;
+
+    font-weight: 700;
+}
+
+
+.tag-small {
+    display: inline-block;
+
+    padding: 6px 12px;
+
+    border-radius: 50px;
+
+    background: #ffe5ef;
+
+    color: var(--rosa);
+
+    font-size: 0.8rem;
+
+    font-weight: 800;
+}
+
+
+.photo-text h3 {
+    font-family: 'Baloo 2', cursive;
+
+    font-size: 2rem;
+
+    color: var(--roxo);
+
+    margin: 15px 0;
+}
+
+
+.check-list {
+    display: grid;
+
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+
+.check-list div {
+    padding: 10px 15px;
+
+    border-radius: 12px;
+
+    background: #f5f1ff;
+
+    color: var(--roxo);
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   VISÃO HUMANA
+========================================================= */
+
+.vision-section {
+    background:
+        linear-gradient(
+            135deg,
+            #f1f6ff,
+            #fff1f8
+        );
+}
+
+
+.vision-content {
+    display: grid;
+
+    grid-template-columns: 0.8fr 1.2fr;
+
+    gap: 45px;
+
+    align-items: center;
+}
+
+
+.eye-illustration {
+    min-height: 300px;
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #dff6ff,
+            #eee1ff
+        );
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+}
+
+
+.eye {
+    font-size: 8rem;
+
+    filter:
+        drop-shadow(
+            0 10px 15px rgba(0, 0, 0, 0.15)
+        );
+
+    animation:
+        piscar 4s infinite;
+}
+
+
+@keyframes piscar {
+
+    0%,
+    90%,
+    100% {
+        transform: scaleY(1);
+    }
+
+    94% {
+        transform: scaleY(0.15);
+    }
 
 }
 
 
-// =========================================================
-// INICIALIZAÇÃO
-// =========================================================
+.eye-label {
+    color: var(--azul);
 
-carregarPergunta();
+    font-weight: 800;
 
-atualizarDisco();
+    font-size: 1.1rem;
+}
+
+
+.vision-text p {
+    font-size: 1.1rem;
+}
+
+
+.vision-fact {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+    margin-top: 20px;
+
+    padding: 18px;
+
+    border-radius: 18px;
+
+    background: white;
+
+    border-left: 5px solid var(--azul);
+
+    box-shadow:
+        0 6px 15px rgba(0, 0, 0, 0.06);
+}
+
+
+.vision-fact strong {
+    color: var(--azul);
+
+    font-size: 1.1rem;
+}
+
+
+/* =========================================================
+   PASSO A PASSO
+========================================================= */
+
+.steps {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 20px;
+}
+
+
+.step {
+    padding: 25px 20px;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #f8f5ff
+        );
+
+    border: 2px solid rgba(123, 44, 255, 0.08);
+
+    transition: 0.25s ease;
+}
+
+
+.step:hover {
+    transform: translateY(-6px);
+
+    border-color: var(--roxo);
+}
+
+
+.step-number {
+    width: 50px;
+    height: 50px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--azul),
+            var(--roxo)
+        );
+
+    color: white;
+
+    font-size: 1.3rem;
+
+    font-weight: 800;
+
+    margin-bottom: 15px;
+}
+
+
+.step h3 {
+    font-family: 'Baloo 2', cursive;
+
+    color: var(--roxo);
+
+    font-size: 1.3rem;
+
+    margin-bottom: 6px;
+}
+
+
+.step p {
+    font-size: 0.95rem;
+
+    margin: 0;
+}
+
+
+/* =========================================================
+   CURIOSIDADES
+========================================================= */
+
+.curiosity-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 20px;
+}
+
+
+.curiosity-card {
+    padding: 28px 20px;
+
+    text-align: center;
+
+    border-radius: 22px;
+
+    background: white;
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.07);
+
+    transition: 0.25s ease;
+
+    border-bottom: 5px solid var(--roxo);
+}
+
+
+.curiosity-card:nth-child(2) {
+    border-color: var(--rosa);
+}
+
+.curiosity-card:nth-child(3) {
+    border-color: var(--azul);
+}
+
+.curiosity-card:nth-child(4) {
+    border-color: var(--verde);
+}
+
+
+.curiosity-card:hover {
+    transform: translateY(-8px) rotate(-1deg);
+}
+
+
+.curiosity-card > span {
+    display: block;
+
+    font-size: 3rem;
+
+    margin-bottom: 8px;
+}
+
+
+.curiosity-card h3 {
+    font-family: 'Baloo 2', cursive;
+
+    color: var(--texto);
+
+    font-size: 1.4rem;
+}
+
+
+.curiosity-card p {
+    font-size: 0.95rem;
+
+    margin: 5px 0 0;
+}
+
+
+/* =========================================================
+   CONCLUSÃO
+========================================================= */
+
+.conclusion-section {
+    padding: 55px 40px;
+
+    margin-bottom: 30px;
+
+    text-align: center;
+
+    border-radius: 30px;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6325dc,
+            #a12fff,
+            #ff3d81
+        );
+
+    box-shadow:
+        0 20px 45px rgba(123, 44, 255, 0.25);
+}
+
+
+.conclusion-icon {
+    font-size: 4rem;
+
+    margin-bottom: 5px;
+
+    animation:
+        flutuar 3s ease-in-out infinite;
+}
+
+
+@keyframes flutuar {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+
+}
+
+
+.conclusion-section .mini-title {
+    color: #ffe45c;
+}
+
+
+.conclusion-section h2 {
+    color: white;
+
+    margin-bottom: 18px;
+}
+
+
+.conclusion-section p {
+    max-width: 800px;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    color: rgba(255, 255, 255, 0.92);
+}
+
+
+.conclusion-section strong {
+    color: #ffe45c;
+}
+
+
+.conclusion-keywords {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    flex-wrap: wrap;
+
+    margin-top: 25px;
+}
+
+
+.conclusion-keywords span {
+    padding: 10px 16px;
+
+    border-radius: 50px;
+
+    background: rgba(255, 255, 255, 0.15);
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   REFERÊNCIAS
+========================================================= */
+
+.reference-box {
+    padding: 25px;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f4f0ff,
+            #fff0f5
+        );
+
+    border-left: 5px solid var(--roxo);
+
+    margin-top: 20px;
+}
+
+
+.reference-box p {
+    margin-bottom: 10px;
+}
+
+.reference-box p:last-child {
+    margin-bottom: 0;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+    padding: 45px 20px;
+
+    text-align: center;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #201044,
+            #3d167d
+        );
+}
+
+
+.footer-logo {
+    font-family: 'Baloo 2', cursive;
+
+    font-size: 1.8rem;
+
+    font-weight: 800;
+
+    margin-bottom: 5px;
+
+    color: #ffe45c;
+}
+
+
+footer p {
+    color: rgba(255, 255, 255, 0.8);
+
+    margin-bottom: 5px;
+}
+
+
+.footer-small {
+    font-size: 0.85rem;
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE
+========================================================= */
+
+@media (max-width: 1050px) {
+
+    .nav-menu {
+        display: none;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+
+        text-align: center;
+
+        padding: 50px 30px;
+    }
+
+    .hero-subtitle {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
+
+    .hero-disc {
+        min-height: 350px;
+    }
+
+    .color-cards {
+        grid-template-columns:
+            repeat(3, 1fr);
+    }
+
+    .steps {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .curiosity-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 800px) {
+
+    main {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .section-card {
+        padding: 30px 20px;
+    }
+
+    .content-grid,
+    .photo-grid,
+    .vision-content {
+        grid-template-columns: 1fr;
+    }
+
+    .color-cards {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .nav-container {
+        justify-content: center;
+    }
+
+    .logo {
+        font-size: 1.2rem;
+    }
+
+}
+
+
+@media (max-width: 550px) {
+
+    .hero {
+        min-height: auto;
+
+        padding: 40px 20px;
+    }
+
+    .hero h1 {
+        font-size: 3.2rem;
+    }
+
+    .disco-hero {
+        width: 240px;
+        height: 240px;
+    }
+
+    .hero-disc {
+        min-height: 280px;
+    }
+
+    .section-title {
+        align-items: flex-start;
+    }
+
+    .section-number {
+        min-width: 45px;
+        height: 45px;
+
+        font-size: 1.1rem;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    .color-cards {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .steps,
+    .curiosity-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .disco-wrapper,
+    .disco-visual {
+        width: 220px;
+        height: 220px;
+    }
+
+    .science-box,
+    .observation-box {
+        flex-direction: column;
+
+        text-align: center;
+    }
+
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE - FOCO
+========================================================= */
+
+a:focus-visible,
+button:focus-visible {
+    outline: 4px solid #ffe45c;
+
+    outline-offset: 3px;
+}
+
+
+/* =========================================================
+   SELEÇÃO DE TEXTO
+========================================================= */
+
+::selection {
+    background: var(--rosa);
+
+    color: white;
+}
