@@ -1,620 +1,558 @@
-// =========================================================
-// DISCO DE NEWTON — INTERAÇÕES
+// ======================================================
+// DISCO DE NEWTON - SCRIPT.JS
 // Projeto Integrador
 // Física + Tecnociência + Programação
-// =========================================================
+// ======================================================
 
 
-// =========================================================
-// ACESSIBILIDADE
-// =========================================================
+// ======================================================
+// 1. ACESSIBILIDADE - ALTO CONTRASTE
+// ======================================================
 
-const body = document.body;
 const btnContraste = document.getElementById("btnContraste");
 
-function atualizarContraste() {
+function alternarContraste() {
+    document.body.classList.toggle("alto-contraste");
 
-    const ativo =
-        body.classList.contains("alto-contraste");
+    const ativo = document.body.classList.contains("alto-contraste");
 
-    btnContraste.setAttribute(
-        "aria-pressed",
-        String(ativo)
-    );
+    localStorage.setItem("altoContraste", ativo);
 
-    btnContraste.textContent =
-        ativo
+    if (btnContraste) {
+        btnContraste.textContent = ativo
             ? "☀️ Contraste normal"
             : "♿ Alto contraste";
+    }
+}
 
-    localStorage.setItem(
-        "altoContraste",
-        String(ativo)
-    );
+if (btnContraste) {
+    btnContraste.addEventListener("click", alternarContraste);
+}
+
+if (localStorage.getItem("altoContraste") === "true") {
+    document.body.classList.add("alto-contraste");
+
+    if (btnContraste) {
+        btnContraste.textContent = "☀️ Contraste normal";
+    }
 }
 
 
-btnContraste.addEventListener("click", () => {
+// ======================================================
+// 2. MENU PARA CELULAR
+// ======================================================
 
-    body.classList.toggle("alto-contraste");
+const menuToggle = document.getElementById("menuToggle");
+const navMenu = document.getElementById("navMenu");
 
-    atualizarContraste();
+if (menuToggle && navMenu) {
 
-});
+    menuToggle.addEventListener("click", () => {
 
+        const aberto = navMenu.classList.toggle("menu-aberto");
 
-if (
-    localStorage.getItem("altoContraste") === "true"
-) {
+        menuToggle.setAttribute("aria-expanded", aberto);
 
-    body.classList.add("alto-contraste");
-
-}
-
-
-atualizarContraste();
+        menuToggle.textContent = aberto ? "✕" : "☰";
+    });
 
 
-// =========================================================
-// MENU PARA CELULAR
-// =========================================================
+    // Fecha o menu quando o usuário clica em um link
+    const linksMenu = navMenu.querySelectorAll("a");
 
-const menuToggle =
-    document.getElementById("menuToggle");
-
-const navMenu =
-    document.getElementById("navMenu");
-
-
-menuToggle.addEventListener("click", () => {
-
-    const aberto =
-        navMenu.classList.toggle("open");
-
-    menuToggle.setAttribute(
-        "aria-expanded",
-        String(aberto)
-    );
-
-});
-
-
-document
-    .querySelectorAll(".nav-menu a")
-    .forEach(link => {
+    linksMenu.forEach(link => {
 
         link.addEventListener("click", () => {
 
-            navMenu.classList.remove("open");
+            navMenu.classList.remove("menu-aberto");
 
-            menuToggle.setAttribute(
-                "aria-expanded",
-                "false"
-            );
+            menuToggle.setAttribute("aria-expanded", "false");
 
+            menuToggle.textContent = "☰";
         });
 
     });
+}
 
 
-// =========================================================
-// CORES DO DISCO
-// =========================================================
+// ======================================================
+// 3. INFORMAÇÕES DAS CORES DO DISCO
+// ======================================================
 
-const colorInfo =
-    document.getElementById("colorInfo");
+const botoesCores = document.querySelectorAll(".color-labels button");
+const colorInfo = document.getElementById("colorInfo");
 
+botoesCores.forEach(botao => {
 
-document
-    .querySelectorAll(".color-labels button")
-    .forEach(button => {
+    botao.addEventListener("click", () => {
 
-        button.addEventListener("click", () => {
+        const cor = botao.dataset.color;
+        const informacao = botao.dataset.info;
 
-            const nome =
-                button.dataset.color;
+        if (colorInfo) {
 
-            const info =
-                button.dataset.info;
+            colorInfo.innerHTML = `
+                <strong>${cor}</strong><br>
+                ${informacao}
+            `;
 
-            colorInfo.innerHTML =
-                `<strong>${nome}:</strong> ${info}`;
+        }
 
+        botoesCores.forEach(b => {
+            b.classList.remove("cor-selecionada");
         });
 
+        botao.classList.add("cor-selecionada");
+
     });
-
-
-// =========================================================
-// PRISMA / ESPECTRO
-// =========================================================
-
-const prismButton =
-    document.getElementById("prismButton");
-
-const spectrum =
-    document.getElementById("spectrum");
-
-const prismHint =
-    document.getElementById("prismHint");
-
-
-prismButton.addEventListener("click", () => {
-
-    const ativo =
-        spectrum.classList.toggle("active");
-
-
-    if (ativo) {
-
-        prismHint.textContent =
-            "✨ A luz foi representada como separada em diferentes componentes do espectro visível.";
-
-        prismButton.setAttribute(
-            "aria-pressed",
-            "true"
-        );
-
-    } else {
-
-        prismHint.textContent =
-            "👆 Clique novamente no prisma para visualizar a decomposição da luz.";
-
-        prismButton.setAttribute(
-            "aria-pressed",
-            "false"
-        );
-
-    }
 
 });
 
 
-// =========================================================
-// SIMULADOR DO DISCO DE NEWTON
-// =========================================================
+// ======================================================
+// 4. SIMULAÇÃO DO PRISMA
+// ======================================================
 
-const disco =
-    document.getElementById("disco");
+const prismButton = document.getElementById("prismButton");
+const spectrum = document.getElementById("spectrum");
+const prismHint = document.getElementById("prismHint");
 
-const discoWrapper =
-    document.querySelector(".disco-wrapper");
+if (prismButton) {
 
-const speedRange =
-    document.getElementById("speedRange");
+    prismButton.addEventListener("click", () => {
 
-const speedValue =
-    document.getElementById("speedValue");
+        const ativo = spectrum.classList.toggle("spectrum-active");
 
-const speedLabel =
-    document.getElementById("speedLabel");
+        if (ativo) {
 
-const resultadoTitulo =
-    document.getElementById("resultadoTitulo");
+            prismButton.classList.add("prism-active");
 
-const resultado =
-    document.getElementById("resultado");
+            prismHint.textContent =
+                "A luz branca foi representada como uma combinação de diferentes regiões do espectro visível.";
 
-const statusIcon =
-    document.getElementById("statusIcon");
+        } else {
 
-const btnGirar =
-    document.getElementById("btnGirar");
+            prismButton.classList.remove("prism-active");
 
-const btnPausar =
-    document.getElementById("btnPausar");
+            prismHint.textContent =
+                "Clique no prisma para visualizar a decomposição da luz.";
 
-const btnResetar =
-    document.getElementById("btnResetar");
+        }
+
+    });
+
+}
 
 
+// ======================================================
+// 5. SIMULADOR DO DISCO DE NEWTON
+// ======================================================
+
+const disco = document.getElementById("disco");
+const btnGirar = document.getElementById("btnGirar");
+const btnPausar = document.getElementById("btnPausar");
+const btnResetar = document.getElementById("btnResetar");
+
+const speedRange = document.getElementById("speedRange");
+const speedValue = document.getElementById("speedValue");
+
+const speedLabel = document.getElementById("speedLabel");
+
+const statusIcon = document.getElementById("statusIcon");
+
+const resultadoTitulo = document.getElementById("resultadoTitulo");
+const resultado = document.getElementById("resultado");
+
+
+// Variáveis do simulador
 let girando = false;
-
 let velocidade = 0;
 
 
-// ---------------------------------------------------------
-// ATUALIZAR VELOCIDADE
-// ---------------------------------------------------------
+// ------------------------------------------------------
+// Atualiza a velocidade visual do disco
+// ------------------------------------------------------
 
-function atualizarDisco() {
+function atualizarVelocidade(valor) {
 
-    velocidade =
-        Number(speedRange.value);
+    velocidade = Number(valor);
+
+    if (speedValue) {
+        speedValue.textContent = `${velocidade}%`;
+    }
 
 
-    speedValue.textContent =
-        `${velocidade}%`;
-
-
-    // -----------------------------------------
-    // DISCO PARADO
-    // -----------------------------------------
-
+    // Velocidade 0
     if (velocidade === 0) {
 
-        disco.style.animationDuration =
-            "0s";
+        if (speedLabel) {
+            speedLabel.textContent = "DISCO PARADO";
+        }
 
-        discoWrapper.classList.remove(
-            "fast-effect",
-            "max-effect"
-        );
+        if (resultadoTitulo) {
+            resultadoTitulo.textContent = "Disco parado";
+        }
 
-        speedLabel.textContent =
-            "DISCO PARADO";
+        if (resultado) {
+            resultado.textContent =
+                "Aumente a velocidade para iniciar a experiência.";
+        }
 
-        resultadoTitulo.textContent =
-            "Disco parado";
+        if (statusIcon) {
+            statusIcon.textContent = "○";
+        }
 
-        resultado.textContent =
-            "Aumente a velocidade para iniciar a experiência.";
-
-        statusIcon.textContent =
-            "○";
+        pararAnimacao();
 
         return;
     }
 
 
-    // -----------------------------------------
-    // VELOCIDADE DA ANIMAÇÃO
-    // -----------------------------------------
-
-    const duracao =
-        Math.max(
-            0.08,
-            1.5 - (velocidade / 100) * 1.38
-        );
-
-
-    disco.style.animationDuration =
-        `${duracao}s`;
-
-
-    // -----------------------------------------
-    // BAIXA VELOCIDADE
-    // -----------------------------------------
-
-    if (velocidade < 35) {
-
-        discoWrapper.classList.remove(
-            "fast-effect",
-            "max-effect"
-        );
-
-        speedLabel.textContent =
-            "BAIXA VELOCIDADE";
-
-        resultadoTitulo.textContent =
-            "🌈 Cores bem definidas";
-
-        resultado.textContent =
-            "Os setores coloridos ainda podem ser percebidos com bastante clareza.";
-
-        statusIcon.textContent =
-            "🟡";
-
-    }
-
-
-    // -----------------------------------------
-    // VELOCIDADE MÉDIA
-    // -----------------------------------------
-
-    else if (velocidade < 70) {
-
-        discoWrapper.classList.add(
-            "fast-effect"
-        );
-
-        discoWrapper.classList.remove(
-            "max-effect"
-        );
-
-        speedLabel.textContent =
-            "VELOCIDADE MÉDIA";
-
-        resultadoTitulo.textContent =
-            "👁️ Maior integração visual";
-
-        resultado.textContent =
-            "As cores passam rapidamente diante dos olhos e tendem a parecer mais integradas.";
-
-        statusIcon.textContent =
-            "🔵";
-
-    }
-
-
-    // -----------------------------------------
-    // ALTA VELOCIDADE
-    // -----------------------------------------
-
-    else {
-
-        discoWrapper.classList.add(
-            "max-effect"
-        );
-
-        speedLabel.textContent =
-            "ALTA VELOCIDADE";
-
-        resultadoTitulo.textContent =
-            "✨ Aparência mais clara";
-
-        resultado.textContent =
-            "A simulação aproxima visualmente a integração das cores. Em um disco real, o resultado pode ser branco-acinzentado.";
-
-        statusIcon.textContent =
-            "⚪";
-
-    }
-
-
-    // -----------------------------------------
-    // CONTINUAR GIRANDO
-    // -----------------------------------------
-
-    if (girando) {
-
-        disco.classList.add(
-            "disco-girando"
-        );
-
-    }
-
-}
-
-
-// ---------------------------------------------------------
-// INICIAR
-// ---------------------------------------------------------
-
-function iniciarDisco() {
-
-    if (velocidade === 0) {
-
-        speedRange.value = 70;
-
-        atualizarDisco();
-
-    }
-
-
-    girando = true;
-
-
-    disco.classList.add(
-        "disco-girando"
-    );
-
-
-    resultadoTitulo.textContent =
-        "🌀 Disco em movimento";
-
-    resultado.textContent =
-        "Observe as cores enquanto aumentamos a velocidade de rotação.";
-
-    statusIcon.textContent =
-        "●";
-
-
-    btnGirar.textContent =
-        "🔄 Girando...";
-
-}
-
-
-// ---------------------------------------------------------
-// PAUSAR
-// ---------------------------------------------------------
-
-function pausarDisco() {
-
-    girando = false;
-
-
-    disco.classList.remove(
-        "disco-girando"
-    );
-
-
-    statusIcon.textContent =
-        "Ⅱ";
-
-
-    btnGirar.textContent =
-        "▶ Girar";
-
-
-    if (velocidade > 0) {
-
-        resultadoTitulo.textContent =
-            "⏸ Experimento pausado";
-
-        resultado.textContent =
-            "Altere a velocidade ou clique em Girar para continuar.";
-
-    }
-
-}
-
-
-// ---------------------------------------------------------
-// REINICIAR
-// ---------------------------------------------------------
-
-function resetarDisco() {
-
-    girando = false;
-
-
-    disco.classList.remove(
-        "disco-girando"
-    );
-
-
-    discoWrapper.classList.remove(
-        "fast-effect",
-        "max-effect"
-    );
-
-
-    speedRange.value = 0;
-
-
-    btnGirar.textContent =
-        "▶ Girar";
-
-
-    atualizarDisco();
-
-}
-
-
-// ---------------------------------------------------------
-// EVENTOS DOS BOTÕES
-// ---------------------------------------------------------
-
-btnGirar.addEventListener(
-    "click",
-    iniciarDisco
-);
-
-
-btnPausar.addEventListener(
-    "click",
-    pausarDisco
-);
-
-
-btnResetar.addEventListener(
-    "click",
-    resetarDisco
-);
-
-
-speedRange.addEventListener(
-    "input",
-    () => {
-
-        atualizarDisco();
-
-        if (
-            velocidade > 0 &&
-            girando
-        ) {
-
-            disco.classList.add(
-                "disco-girando"
-            );
-
+    // Velocidade baixa
+    if (velocidade < 30) {
+
+        if (speedLabel) {
+            speedLabel.textContent = "ROTAÇÃO BAIXA";
+        }
+
+        if (resultadoTitulo) {
+            resultadoTitulo.textContent = "As cores ainda estão bem visíveis";
+        }
+
+        if (resultado) {
+            resultado.textContent =
+                "O disco está começando a girar. Como a velocidade ainda é baixa, conseguimos perceber as diferentes regiões coloridas.";
+        }
+
+        if (statusIcon) {
+            statusIcon.textContent = "◔";
         }
 
     }
-);
 
 
-// =========================================================
-// MODAIS DOS CONCEITOS
-// =========================================================
+    // Velocidade média
+    else if (velocidade < 70) {
 
-const modal =
-    document.getElementById("conceptModal");
+        if (speedLabel) {
+            speedLabel.textContent = "ROTAÇÃO MÉDIA";
+        }
 
-const modalTitle =
-    document.getElementById("modalTitle");
+        if (resultadoTitulo) {
+            resultadoTitulo.textContent = "As cores começam a se integrar";
+        }
 
-const modalText =
-    document.getElementById("modalText");
+        if (resultado) {
+            resultado.textContent =
+                "Com a rotação mais rápida, as informações luminosas das diferentes regiões do disco chegam aos olhos em uma sequência mais rápida.";
+        }
 
-const modalClose =
-    document.getElementById("modalClose");
+        if (statusIcon) {
+            statusIcon.textContent = "◑";
+        }
+
+    }
 
 
-document
-    .querySelectorAll(".concept-card")
-    .forEach(card => {
+    // Velocidade alta
+    else {
 
-        card.addEventListener("click", () => {
+        if (speedLabel) {
+            speedLabel.textContent = "ROTAÇÃO ALTA";
+        }
 
-            modalTitle.textContent =
-                card.dataset.modalTitle;
+        if (resultadoTitulo) {
+            resultadoTitulo.textContent = "Mistura visual das cores";
+        }
 
-            modalText.textContent =
-                card.dataset.modalText;
+        if (resultado) {
+            resultado.innerHTML =
+                "A rotação rápida faz com que as cores sejam percebidas de maneira mais integrada. <strong>É aqui que podemos observar o princípio demonstrado pelo Disco de Newton.</strong>";
+        }
 
-            modal.classList.add("active");
+        if (statusIcon) {
+            statusIcon.textContent = "●";
+        }
 
-            modal.setAttribute(
-                "aria-hidden",
-                "false"
-            );
+    }
 
-            modalClose.focus();
 
-        });
+    // Se estiver girando, atualiza a velocidade da animação
+    if (girando) {
+        aplicarAnimacao();
+    }
+
+}
+
+
+// ------------------------------------------------------
+// Aplica a animação de rotação
+// ------------------------------------------------------
+
+function aplicarAnimacao() {
+
+    if (!disco || velocidade <= 0) {
+        return;
+    }
+
+    /*
+        Quanto maior a velocidade escolhida,
+        menor o tempo de uma volta.
+    */
+
+    const duracao = Math.max(
+        0.08,
+        1.5 - (velocidade / 100) * 1.4
+    );
+
+    disco.style.animationDuration = `${duracao}s`;
+
+    disco.classList.add("disco-girando");
+}
+
+
+// ------------------------------------------------------
+// Para a animação
+// ------------------------------------------------------
+
+function pararAnimacao() {
+
+    if (!disco) {
+        return;
+    }
+
+    disco.classList.remove("disco-girando");
+}
+
+
+// ------------------------------------------------------
+// Botão GIRAR
+// ------------------------------------------------------
+
+if (btnGirar) {
+
+    btnGirar.addEventListener("click", () => {
+
+        if (velocidade === 0) {
+
+            // Se estiver parado, começa com velocidade inicial
+            velocidade = 30;
+
+            if (speedRange) {
+                speedRange.value = velocidade;
+            }
+
+            atualizarVelocidade(velocidade);
+        }
+
+        girando = true;
+
+        aplicarAnimacao();
+
+        if (btnGirar) {
+            btnGirar.classList.add("ativo");
+        }
+
+        if (btnPausar) {
+            btnPausar.classList.remove("ativo");
+        }
 
     });
+
+}
+
+
+// ------------------------------------------------------
+// Botão PAUSAR
+// ------------------------------------------------------
+
+if (btnPausar) {
+
+    btnPausar.addEventListener("click", () => {
+
+        girando = false;
+
+        pararAnimacao();
+
+        if (btnPausar) {
+            btnPausar.classList.add("ativo");
+        }
+
+        if (btnGirar) {
+            btnGirar.classList.remove("ativo");
+        }
+
+        if (speedLabel && velocidade > 0) {
+            speedLabel.textContent = "DISCO PAUSADO";
+        }
+
+    });
+
+}
+
+
+// ------------------------------------------------------
+// Botão REINICIAR
+// ------------------------------------------------------
+
+if (btnResetar) {
+
+    btnResetar.addEventListener("click", () => {
+
+        girando = false;
+        velocidade = 0;
+
+        pararAnimacao();
+
+        if (speedRange) {
+            speedRange.value = 0;
+        }
+
+        if (speedValue) {
+            speedValue.textContent = "0%";
+        }
+
+        if (speedLabel) {
+            speedLabel.textContent = "DISCO PARADO";
+        }
+
+        if (resultadoTitulo) {
+            resultadoTitulo.textContent = "Disco parado";
+        }
+
+        if (resultado) {
+            resultado.textContent =
+                "Aumente a velocidade para iniciar a experiência.";
+        }
+
+        if (statusIcon) {
+            statusIcon.textContent = "○";
+        }
+
+        if (btnGirar) {
+            btnGirar.classList.remove("ativo");
+        }
+
+        if (btnPausar) {
+            btnPausar.classList.remove("ativo");
+        }
+
+    });
+
+}
+
+
+// ------------------------------------------------------
+// Controle deslizante de velocidade
+// ------------------------------------------------------
+
+if (speedRange) {
+
+    speedRange.addEventListener("input", () => {
+
+        const valor = Number(speedRange.value);
+
+        atualizarVelocidade(valor);
+
+        if (valor > 0 && !girando) {
+
+            // Apenas mostra a velocidade escolhida,
+            // sem iniciar automaticamente.
+
+            pararAnimacao();
+
+        }
+
+    });
+
+}
+
+
+// ======================================================
+// 6. MODAL DOS CONCEITOS
+// ======================================================
+
+const conceptCards = document.querySelectorAll(".concept-card");
+
+const conceptModal = document.getElementById("conceptModal");
+const modalClose = document.getElementById("modalClose");
+
+const modalTitle = document.getElementById("modalTitle");
+const modalText = document.getElementById("modalText");
+
+
+conceptCards.forEach(card => {
+
+    card.addEventListener("click", () => {
+
+        const titulo = card.dataset.modalTitle;
+        const texto = card.dataset.modalText;
+
+        if (modalTitle) {
+            modalTitle.textContent = titulo;
+        }
+
+        if (modalText) {
+            modalText.textContent = texto;
+        }
+
+        if (conceptModal) {
+
+            conceptModal.classList.add("modal-aberto");
+
+            conceptModal.setAttribute("aria-hidden", "false");
+
+        }
+
+    });
+
+});
 
 
 function fecharModal() {
 
-    modal.classList.remove(
-        "active"
-    );
+    if (!conceptModal) {
+        return;
+    }
 
-    modal.setAttribute(
-        "aria-hidden",
-        "true"
-    );
+    conceptModal.classList.remove("modal-aberto");
+
+    conceptModal.setAttribute("aria-hidden", "true");
+}
+
+
+if (modalClose) {
+    modalClose.addEventListener("click", fecharModal);
+}
+
+
+// Fecha clicando fora da caixa
+if (conceptModal) {
+
+    conceptModal.addEventListener("click", event => {
+
+        if (event.target === conceptModal) {
+            fecharModal();
+        }
+
+    });
 
 }
 
 
-modalClose.addEventListener(
-    "click",
-    fecharModal
-);
+// Fecha com ESC
+document.addEventListener("keydown", event => {
 
-
-modal.addEventListener(
-    "click",
-    event => {
-
-        if (
-            event.target === modal
-        ) {
-
-            fecharModal();
-
-        }
-
+    if (event.key === "Escape") {
+        fecharModal();
     }
-);
+
+});
 
 
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if (
-            event.key === "Escape" &&
-            modal.classList.contains("active")
-        ) {
-
-            fecharModal();
-
-        }
-
-    }
-);
-
-
-// =========================================================
-// QUIZ
-// =========================================================
+// ======================================================
+// 7. QUIZ
+// ======================================================
 
 const perguntas = [
 
@@ -623,413 +561,476 @@ const perguntas = [
             "O que acontece com a percepção das cores quando o Disco de Newton gira rapidamente?",
 
         opcoes: [
-
-            "As cores tendem a parecer mais integradas visualmente.",
-
-            "As cores deixam de refletir qualquer luz.",
-
-            "O disco obrigatoriamente fica preto.",
-
-            "A luz desaparece."
-
+            "As cores podem ser percebidas de forma mais integrada.",
+            "Todas as cores desaparecem fisicamente.",
+            "O disco começa a produzir luz própria.",
+            "A luz deixa de existir."
         ],
 
         correta: 0,
 
         explicacao:
-            "A rotação rápida faz os setores coloridos passarem sucessivamente diante dos olhos, contribuindo para uma percepção mais integrada."
+            "A rotação rápida faz com que os diferentes estímulos coloridos sejam apresentados em rápida sequência, influenciando a percepção visual."
     },
 
 
     {
         pergunta:
-            "O que um prisma pode fazer com a luz branca?",
+            "Qual é a principal relação do Disco de Newton com a luz?",
 
         opcoes: [
-
-            "Destruí-la.",
-
-            "Separá-la em diferentes componentes do espectro.",
-
-            "Transformá-la diretamente em calor.",
-
-            "Torná-la invisível."
-
-        ],
-
-        correta: 1,
-
-        explicacao:
-            "A dispersão pode separar componentes da luz, permitindo observar diferentes regiões do espectro visível."
-    },
-
-
-    {
-        pergunta:
-            "Qual conceito está relacionado à percepção de estímulos visuais apresentados rapidamente em sequência?",
-
-        opcoes: [
-
-            "Convecção.",
-
-            "Refração sonora.",
-
-            "Percepção visual.",
-
-            "Inércia térmica."
-
-        ],
-
-        correta: 2,
-
-        explicacao:
-            "A percepção visual está relacionada à forma como nosso sistema visual processa estímulos apresentados rapidamente."
-    },
-
-
-    {
-        pergunta:
-            "Por que um Disco de Newton feito com pigmentos pode parecer acinzentado em vez de branco puro?",
-
-        opcoes: [
-
-            "Porque os pigmentos absorvem parte da luz.",
-
-            "Porque o olho humano não percebe nenhuma cor.",
-
-            "Porque o disco precisa ser preto.",
-
-            "Porque o movimento elimina a luz."
-
+            "Ele demonstra uma relação entre diferentes cores do espectro visível.",
+            "Ele transforma qualquer objeto em uma fonte de luz.",
+            "Ele impede a luz de chegar aos olhos.",
+            "Ele demonstra apenas o funcionamento de um motor."
         ],
 
         correta: 0,
 
         explicacao:
-            "Os pigmentos absorvem parte da luz incidente, por isso o resultado de um disco real pode parecer acinzentado."
+            "O disco reúne diferentes cores do espectro visível e permite observar como elas podem ser percebidas quando o disco gira."
+    },
+
+
+    {
+        pergunta:
+            "O que é dispersão da luz?",
+
+        opcoes: [
+            "A separação da luz em diferentes componentes.",
+            "A ausência total de luz.",
+            "A transformação da luz em som.",
+            "O aumento da massa da luz."
+        ],
+
+        correta: 0,
+
+        explicacao:
+            "A dispersão está relacionada à separação dos componentes da luz, como podemos observar na passagem da luz por um prisma."
+    },
+
+
+    {
+        pergunta:
+            "Qual sistema do corpo participa diretamente da percepção das cores?",
+
+        opcoes: [
+            "Sistema visual.",
+            "Sistema digestório.",
+            "Sistema muscular.",
+            "Sistema respiratório."
+        ],
+
+        correta: 0,
+
+        explicacao:
+            "A percepção visual depende da interação entre os olhos, especialmente a retina, e o cérebro."
     }
 
 ];
 
 
 let perguntaAtual = 0;
-
 let pontuacao = 0;
-
 let respondeu = false;
 
 
-const quizQuestion =
-    document.getElementById(
-        "quizQuestion"
-    );
+const quizQuestion = document.getElementById("quizQuestion");
+const quizOptions = document.getElementById("quizOptions");
+const quizFeedback = document.getElementById("quizFeedback");
+const quizNext = document.getElementById("quizNext");
 
-const quizOptions =
-    document.getElementById(
-        "quizOptions"
-    );
-
-const quizFeedback =
-    document.getElementById(
-        "quizFeedback"
-    );
-
-const quizNext =
-    document.getElementById(
-        "quizNext"
-    );
-
-const quizProgress =
-    document.getElementById(
-        "quizProgress"
-    );
-
-const quizBar =
-    document.getElementById(
-        "quizBar"
-    );
+const quizProgress = document.getElementById("quizProgress");
+const quizBar = document.getElementById("quizBar");
 
 
-// ---------------------------------------------------------
-// CARREGAR PERGUNTA
-// ---------------------------------------------------------
+// ------------------------------------------------------
+// Carrega pergunta
+// ------------------------------------------------------
 
 function carregarPergunta() {
 
     respondeu = false;
 
-    quizNext.disabled = true;
+    const pergunta = perguntas[perguntaAtual];
 
-    quizFeedback.textContent = "";
-
-    quizFeedback.className =
-        "quiz-feedback";
-
-
-    const pergunta =
-        perguntas[perguntaAtual];
+    if (!pergunta) {
+        finalizarQuiz();
+        return;
+    }
 
 
-    quizProgress.textContent =
-        `Questão ${perguntaAtual + 1} de ${perguntas.length}`;
+    if (quizQuestion) {
+        quizQuestion.textContent = pergunta.pergunta;
+    }
 
 
-    quizBar.style.width =
-        `${((perguntaAtual + 1) / perguntas.length) * 100}%`;
+    if (quizOptions) {
+
+        quizOptions.innerHTML = "";
+
+        pergunta.opcoes.forEach((opcao, indice) => {
+
+            const botao = document.createElement("button");
+
+            botao.type = "button";
+
+            botao.className = "quiz-option";
+
+            botao.textContent = opcao;
+
+            botao.addEventListener("click", () => {
+                responderPergunta(indice);
+            });
+
+            quizOptions.appendChild(botao);
+
+        });
+
+    }
 
 
-    quizQuestion.textContent =
-        pergunta.pergunta;
+    if (quizFeedback) {
+        quizFeedback.textContent = "";
+        quizFeedback.className = "quiz-feedback";
+    }
 
 
-    quizOptions.innerHTML =
-        "";
+    if (quizNext) {
+        quizNext.disabled = true;
+        quizNext.textContent =
+            perguntaAtual === perguntas.length - 1
+                ? "Ver resultado"
+                : "Próxima →";
+    }
 
 
-    pergunta.opcoes.forEach(
-        (opcao, indice) => {
-
-            const button =
-                document.createElement(
-                    "button"
-                );
+    if (quizProgress) {
+        quizProgress.textContent =
+            `Questão ${perguntaAtual + 1} de ${perguntas.length}`;
+    }
 
 
-            button.className =
-                "quiz-option";
+    if (quizBar) {
 
+        const progresso =
+            (perguntaAtual / perguntas.length) * 100;
 
-            button.type =
-                "button";
-
-
-            button.textContent =
-                opcao;
-
-
-            button.addEventListener(
-                "click",
-                () => responder(
-                    indice,
-                    button
-                )
-            );
-
-
-            quizOptions.appendChild(
-                button
-            );
-
-        }
-    );
-
-
-    quizNext.textContent =
-        perguntaAtual === perguntas.length - 1
-            ? "Ver resultado →"
-            : "Próxima →";
+        quizBar.style.width = `${progresso}%`;
+    }
 
 }
 
 
-// ---------------------------------------------------------
-// RESPONDER
-// ---------------------------------------------------------
+// ------------------------------------------------------
+// Responde pergunta
+// ------------------------------------------------------
 
-function responder(
-    indice,
-    buttonEscolhido
-) {
+function responderPergunta(indiceEscolhido) {
 
     if (respondeu) {
         return;
     }
 
-
     respondeu = true;
 
-
-    const pergunta =
-        perguntas[perguntaAtual];
-
+    const pergunta = perguntas[perguntaAtual];
 
     const botoes =
-        document.querySelectorAll(
-            ".quiz-option"
-        );
+        quizOptions.querySelectorAll(".quiz-option");
 
 
-    botoes.forEach(
-        (button, i) => {
-
-            button.disabled = true;
-
-
-            if (
-                i === pergunta.correta
-            ) {
-
-                button.classList.add(
-                    "correct"
-                );
-
-            }
-
-        }
-    );
+    botoes.forEach(botao => {
+        botao.disabled = true;
+    });
 
 
-    if (
-        indice === pergunta.correta
-    ) {
+    if (indiceEscolhido === pergunta.correta) {
 
         pontuacao++;
 
+        botoes[indiceEscolhido].classList.add("correta");
 
-        quizFeedback.textContent =
-            `✓ Correto! ${pergunta.explicacao}`;
+        if (quizFeedback) {
 
+            quizFeedback.className =
+                "quiz-feedback feedback-correto";
 
-        quizFeedback.classList.add(
-            "correct-feedback"
-        );
+            quizFeedback.innerHTML =
+                `✓ <strong>Correto!</strong> ${pergunta.explicacao}`;
+
+        }
 
     } else {
 
-        buttonEscolhido.classList.add(
-            "wrong"
-        );
+        botoes[indiceEscolhido].classList.add("incorreta");
 
+        botoes[pergunta.correta].classList.add("correta");
 
-        quizFeedback.textContent =
-            `✗ Quase! ${pergunta.explicacao}`;
+        if (quizFeedback) {
 
+            quizFeedback.className =
+                "quiz-feedback feedback-erro";
 
-        quizFeedback.classList.add(
-            "wrong-feedback"
-        );
+            quizFeedback.innerHTML =
+                `✕ <strong>Quase!</strong> ${pergunta.explicacao}`;
+
+        }
 
     }
 
 
-    quizNext.disabled =
-        false;
+    if (quizNext) {
+        quizNext.disabled = false;
+    }
+
+
+    if (quizBar) {
+
+        const progresso =
+            ((perguntaAtual + 1) / perguntas.length) * 100;
+
+        quizBar.style.width = `${progresso}%`;
+
+    }
 
 }
 
 
-// ---------------------------------------------------------
-// PRÓXIMA PERGUNTA
-// ---------------------------------------------------------
+// ------------------------------------------------------
+// Próxima pergunta
+// ------------------------------------------------------
 
-quizNext.addEventListener(
-    "click",
-    () => {
+if (quizNext) {
+
+    quizNext.addEventListener("click", () => {
 
         if (!respondeu) {
             return;
         }
 
+        perguntaAtual++;
 
-        if (
-            perguntaAtual <
-            perguntas.length - 1
-        ) {
+        carregarPergunta();
 
-            perguntaAtual++;
+    });
 
-            carregarPergunta();
+}
 
-            return;
+
+// ------------------------------------------------------
+// Resultado final
+// ------------------------------------------------------
+
+function finalizarQuiz() {
+
+    if (quizQuestion) {
+
+        quizQuestion.innerHTML = `
+            🎉 Quiz concluído!
+        `;
+
+    }
+
+
+    if (quizOptions) {
+
+        let mensagem = "";
+
+        if (pontuacao === perguntas.length) {
+
+            mensagem =
+                "Excelente! Você demonstrou domínio dos conceitos principais do Disco de Newton.";
+
+        } else if (pontuacao >= 3) {
+
+            mensagem =
+                "Muito bom! Você compreendeu a maior parte dos conceitos.";
+
+        } else if (pontuacao >= 2) {
+
+            mensagem =
+                "Bom começo! Vale revisar alguns conceitos antes da apresentação.";
+
+        } else {
+
+            mensagem =
+                "Vale revisar o conteúdo do site e tentar novamente.";
 
         }
 
 
-        mostrarResultado();
+        quizOptions.innerHTML = `
+            <div class="quiz-final">
+                <div class="final-score">
+                    ${pontuacao}/${perguntas.length}
+                </div>
 
+                <h3>${mensagem}</h3>
+
+                <button
+                    class="btn-primary"
+                    id="reiniciarQuiz"
+                    type="button">
+                    ↻ Refazer quiz
+                </button>
+            </div>
+        `;
+
+
+        const reiniciarQuiz =
+            document.getElementById("reiniciarQuiz");
+
+
+        if (reiniciarQuiz) {
+
+            reiniciarQuiz.addEventListener("click", () => {
+
+                perguntaAtual = 0;
+                pontuacao = 0;
+
+                carregarPergunta();
+
+            });
+
+        }
+
+    }
+
+
+    if (quizFeedback) {
+        quizFeedback.textContent = "";
+    }
+
+
+    if (quizNext) {
+        quizNext.style.display = "none";
+    }
+
+
+    if (quizProgress) {
+        quizProgress.textContent = "Quiz concluído";
+    }
+
+
+    if (quizBar) {
+        quizBar.style.width = "100%";
+    }
+
+}
+
+
+// Inicia o quiz
+if (quizQuestion && quizOptions) {
+    carregarPergunta();
+}
+
+
+// ======================================================
+// 8. ANIMAÇÃO DE ENTRADA DAS SEÇÕES
+// ======================================================
+
+const secoes = document.querySelectorAll(".section");
+
+const observador = new IntersectionObserver(
+    (entradas) => {
+
+        entradas.forEach(entrada => {
+
+            if (entrada.isIntersecting) {
+
+                entrada.target.classList.add("section-visible");
+
+                observador.unobserve(entrada.target);
+
+            }
+
+        });
+
+    },
+    {
+        threshold: 0.12
     }
 );
 
 
-// ---------------------------------------------------------
-// RESULTADO
-// ---------------------------------------------------------
-
-function mostrarResultado() {
-
-    quizQuestion.textContent =
-        `🎉 Você acertou ${pontuacao} de ${perguntas.length}!`;
+secoes.forEach(secao => {
+    observador.observe(secao);
+});
 
 
-    quizOptions.innerHTML =
-        "";
+// ======================================================
+// 9. EFEITO DE DESTAQUE NO DISCO CONFORME A VELOCIDADE
+// ======================================================
+
+if (speedRange && disco) {
+
+    speedRange.addEventListener("input", () => {
+
+        const valor = Number(speedRange.value);
+
+        /*
+            O brilho é apenas uma representação visual.
+            Não significa que o disco esteja realmente
+            emitindo luz branca.
+        */
+
+        if (valor >= 80) {
+
+            disco.classList.add("mistura-alta");
+
+        } else {
+
+            disco.classList.remove("mistura-alta");
+
+        }
+
+    });
+
+}
 
 
-    quizFeedback.className =
-        "quiz-feedback result-feedback";
+// ======================================================
+// 10. ACESSIBILIDADE PELO TECLADO
+// ======================================================
 
+document.addEventListener("keydown", event => {
 
+    // Barra de espaço controla o disco
     if (
-        pontuacao === perguntas.length
+        event.code === "Space" &&
+        document.activeElement === document.body
     ) {
 
-        quizFeedback.textContent =
-            "🏆 Excelente! Você dominou os principais conceitos do Disco de Newton.";
+        event.preventDefault();
+
+        if (!girando) {
+
+            if (velocidade === 0) {
+                velocidade = 30;
+
+                if (speedRange) {
+                    speedRange.value = 30;
+                }
+
+                atualizarVelocidade(30);
+            }
+
+            girando = true;
+            aplicarAnimacao();
+
+        } else {
+
+            girando = false;
+            pararAnimacao();
+
+        }
 
     }
 
-    else if (
-        pontuacao >= 2
-    ) {
-
-        quizFeedback.textContent =
-            "👏 Muito bem! Você já entendeu boa parte do conteúdo.";
-
-    }
-
-    else {
-
-        quizFeedback.textContent =
-            "🔎 Que tal revisar as seções de Física e visão humana e tentar novamente?";
-
-    }
+});
 
 
-    quizNext.textContent =
-        "↻ Refazer quiz";
-
-
-    quizNext.disabled =
-        false;
-
-
-    quizNext.onclick =
-        reiniciarQuiz;
-
-}
-
-
-// ---------------------------------------------------------
-// REINICIAR QUIZ
-// ---------------------------------------------------------
-
-function reiniciarQuiz() {
-
-    perguntaAtual = 0;
-
-    pontuacao = 0;
-
-    quizNext.onclick = null;
-
-    carregarPergunta();
-
-}
-
-
-// =========================================================
-// INICIALIZAÇÃO
-// =========================================================
-
-carregarPergunta();
-
-atualizarDisco();
+// ======================================================
+// FIM DO SCRIPT
+// ======================================================
