@@ -1,105 +1,47 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <meta
-        name="description"
-        content="Projeto Integrador sobre o Disco de Newton, luz, cores e visão humana."
-    >
-
+    <meta name="description" content="Projeto Integrador sobre o Disco de Newton, luz, cores e visão humana.">
     <title>Disco de Newton | Projeto Integrador CEP</title>
-
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-    <!-- =====================================================
-         HEADER
-    ====================================================== -->
-
     <header class="header">
-
         <nav class="nav-container" aria-label="Navegação principal">
-
             <a class="logo" href="#inicio" aria-label="Início">
-
-                <span class="logo-disc"></span>
-
+                <span class="logo-dot"></span>
                 Disco de Newton
-
             </a>
 
-            <button
-                class="menu-toggle"
-                id="menuToggle"
-                aria-label="Abrir menu"
-                aria-expanded="false"
-                type="button"
-            >
-                ☰
-            </button>
+            <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
 
             <ul class="nav-menu" id="navMenu">
-
-                <li>
-                    <a href="#conceito">Conceito</a>
-                </li>
-
-                <li>
-                    <a href="#luz">Luz</a>
-                </li>
-
-                <li>
-                    <a href="#experimento">Experimento</a>
-                </li>
-
-                <li>
-                    <a href="#visao">Visão</a>
-                </li>
-
-                <li>
-                    <a href="#quiz">Quiz</a>
-                </li>
-
+                <li><a href="#conceito">Conceito</a></li>
+                <li><a href="#luz">Luz</a></li>
+                <li><a href="#experimento">Experimento</a></li>
+                <li><a href="#visao">Visão</a></li>
+                <li><a href="#quiz">Quiz</a></li>
             </ul>
 
-            <button
-                class="btn-acessibilidade"
-                id="btnContraste"
-                type="button"
-            >
+            <button class="btn-acessibilidade" id="btnContraste" type="button">
                 ♿ Alto contraste
             </button>
-
         </nav>
-
     </header>
-
-
-    <!-- =====================================================
-         CONTEÚDO PRINCIPAL
-    ====================================================== -->
 
     <main>
 
-        <!-- =================================================
-             HERO
-        ================================================== -->
-
         <section class="hero" id="inicio">
-
             <div class="hero-content">
-
                 <span class="eyebrow">
                     PROJETO INTEGRADOR • FÍSICA + TECNOCIÊNCIA + PROGRAMAÇÃO
                 </span>
 
                 <h1>
-                    DISCO
+                    DISCO<br>
                     <span>DE NEWTON</span>
                 </h1>
 
@@ -113,78 +55,39 @@
                     pode produzir uma percepção próxima do branco.
                 </p>
 
-                <div class="hero-buttons">
-
-                    <a
-                        class="hero-button"
-                        href="#experimento"
-                    >
-                        🔬 Experimentar o disco
-                    </a>
-
-                    <a
-                        class="hero-button secondary"
-                        href="#conceito"
-                    >
-                        📚 Aprender
-                    </a>
-
-                </div>
-
+                <a class="hero-button" href="#experimento">
+                    🔬 Experimentar o disco
+                </a>
             </div>
-
 
             <div class="hero-visual" aria-hidden="true">
-
-                <div class="orbit orbit-one"></div>
-
-                <div class="orbit orbit-two"></div>
-
-                <div class="hero-glow"></div>
-
+                <div class="orbit orbit-1"></div>
+                <div class="orbit orbit-2"></div>
                 <div class="hero-disc"></div>
-
+                <div class="hero-glow"></div>
             </div>
-
         </section>
 
-
-        <!-- =================================================
-             CONCEITO
-        ================================================== -->
 
         <section class="section" id="conceito">
 
             <div class="section-heading">
-
-                <span class="section-number">
-                    01
-                </span>
+                <span class="section-number">01</span>
 
                 <div>
-
-                    <span class="eyebrow">
-                        CONCEITO
-                    </span>
-
-                    <h2>
-                        O que é o Disco de Newton?
-                    </h2>
-
+                    <span class="eyebrow">CONCEITO</span>
+                    <h2>O que é o Disco de Newton?</h2>
                 </div>
-
             </div>
-
 
             <div class="concept-grid">
 
                 <div class="text-column">
 
                     <p>
-                        O <strong>Disco de Newton</strong> é um disco dividido
-                        em setores com diferentes cores do espectro visível.
-                        Quando ele gira rapidamente, as cores passam
-                        sucessivamente diante dos nossos olhos e podem ser
+                        O <strong>Disco de Newton</strong> é um disco dividido em setores
+                        com diferentes cores do espectro visível. Quando ele gira rapidamente,
+                        as cores passam sucessivamente diante dos nossos olhos e podem ser
                         percebidas de forma integrada.
                     </p>
 
@@ -193,23 +96,17 @@
                         <strong>luz, cores, movimento e percepção visual</strong>.
                     </p>
 
-
                     <div class="info-highlight">
-
                         <span>💡</span>
 
                         <div>
-
                             <strong>Observe:</strong>
 
                             <p>
-                                Parado, o disco mostra as cores separadas.
-                                Em rotação rápida, elas tendem a parecer
-                                mais integradas.
+                                parado, o disco mostra as cores separadas; em rotação rápida,
+                                elas tendem a parecer mais integradas.
                             </p>
-
                         </div>
-
                     </div>
 
                 </div>
@@ -217,77 +114,57 @@
 
                 <div class="mini-disc-card">
 
-                    <span class="visual-label">
-                        CORES DO ESPECTRO VISÍVEL
-                    </span>
-
                     <div class="mini-disc"></div>
 
+                    <span>CORES DO ESPECTRO VISÍVEL</span>
 
                     <div class="color-labels">
 
                         <button
-                            type="button"
                             data-color="Vermelho"
-                            data-info="Uma das regiões do espectro visível."
-                        >
+                            data-info="Uma das regiões do espectro visível.">
                             V
                         </button>
 
                         <button
-                            type="button"
                             data-color="Laranja"
-                            data-info="Região entre o vermelho e o amarelo."
-                        >
+                            data-info="Região entre o vermelho e o amarelo.">
                             L
                         </button>
 
                         <button
-                            type="button"
                             data-color="Amarelo"
-                            data-info="Região intermediária do espectro visível."
-                        >
+                            data-info="Região intermediária do espectro visível.">
                             A
                         </button>
 
                         <button
-                            type="button"
                             data-color="Verde"
-                            data-info="Região associada à maior sensibilidade visual humana."
-                        >
+                            data-info="Região associada à maior sensibilidade visual humana.">
                             V
                         </button>
 
                         <button
-                            type="button"
                             data-color="Azul"
-                            data-info="Região de menor comprimento de onda que o verde."
-                        >
+                            data-info="Região de menor comprimento de onda que o verde.">
                             A
                         </button>
 
                         <button
-                            type="button"
                             data-color="Anil"
-                            data-info="Faixa tradicionalmente representada entre azul e violeta."
-                        >
+                            data-info="Faixa tradicionalmente representada entre azul e violeta.">
                             I
                         </button>
 
                         <button
-                            type="button"
                             data-color="Violeta"
-                            data-info="Uma das extremidades do espectro visível."
-                        >
+                            data-info="Uma das extremidades do espectro visível.">
                             V
                         </button>
 
                     </div>
 
-                    <p
-                        class="color-info"
-                        id="colorInfo"
-                    >
+                    <p class="color-info" id="colorInfo">
                         Clique em uma letra para saber mais.
                     </p>
 
@@ -295,150 +172,62 @@
 
             </div>
 
-
-            <!-- FOTO DO EXPERIMENTO -->
-
-            <div class="my-experiment">
-
-                <div class="my-experiment-text">
-
-                    <span class="eyebrow">
-                        NOSSO EXPERIMENTO
-                    </span>
-
-                    <h3>
-                        O experimento na prática 🔬
-                    </h3>
-
-                    <p>
-                        Aqui está um registro do nosso experimento com o
-                        Disco de Newton. A atividade permite observar na
-                        prática a relação entre as cores, o movimento e
-                        a percepção visual.
-                    </p>
-
-                    <span class="photo-tag">
-                        📸 Registro do projeto
-                    </span>
-
-                </div>
-
-
-                <div class="photo-frame">
-
-                    <img
-                        src="foto-experimento.jpg"
-                        alt="Registro do experimento do Disco de Newton realizado pelo grupo"
-                        class="experiment-photo"
-                    >
-
-                </div>
-
-            </div>
-
         </section>
 
-
-        <!-- =================================================
-             LUZ
-        ================================================== -->
 
         <section class="section" id="luz">
 
             <div class="section-heading">
-
-                <span class="section-number">
-                    02
-                </span>
+                <span class="section-number">02</span>
 
                 <div>
-
-                    <span class="eyebrow">
-                        FÍSICA DA LUZ
-                    </span>
-
-                    <h2>
-                        Luz branca e espectro visível
-                    </h2>
-
+                    <span class="eyebrow">FÍSICA DA LUZ</span>
+                    <h2>Luz branca e espectro visível</h2>
                 </div>
-
             </div>
 
-
             <p class="section-intro">
-
-                A luz branca pode ser entendida como uma combinação de
-                diferentes componentes do espectro visível. Um prisma pode
-                separar esses componentes, mostrando diferentes cores.
-
+                A luz branca pode ser entendida como uma combinação de diferentes componentes
+                do espectro visível. Um prisma pode separar esses componentes, mostrando as
+                diferentes cores.
             </p>
 
 
             <div class="light-experiment">
 
                 <div class="light-source">
-
-                    <div class="source-icon">
-                        ☀️
-                    </div>
-
-                    <strong>
-                        LUZ BRANCA
-                    </strong>
-
+                    <div class="white-beam"></div>
+                    <div class="source-icon">☀️</div>
+                    <strong>LUZ BRANCA</strong>
                 </div>
 
-
-                <div class="flow-arrow">
-                    →
-                </div>
-
+                <div class="flow-arrow">→</div>
 
                 <button
                     class="prism"
                     id="prismButton"
                     type="button"
-                    aria-label="Decompor a luz com o prisma"
-                >
+                    aria-label="Decompor a luz com o prisma">
 
-                    <span>
-                        △
-                    </span>
-
-                    <small>
-                        PRISMA
-                    </small>
+                    <span>△</span>
+                    <small>PRISMA</small>
 
                 </button>
 
+                <div class="flow-arrow">→</div>
 
-                <div class="flow-arrow">
-                    →
-                </div>
-
-
-                <div
-                    class="spectrum"
-                    id="spectrum"
-                >
-
+                <div class="spectrum" id="spectrum">
                     <span>🔴</span>
                     <span>🟠</span>
                     <span>🟡</span>
                     <span>🟢</span>
                     <span>🔵</span>
                     <span>🟣</span>
-
                 </div>
 
             </div>
 
-
-            <p
-                class="interaction-hint"
-                id="prismHint"
-            >
+            <p class="interaction-hint" id="prismHint">
                 Clique no prisma para visualizar a decomposição da luz.
             </p>
 
@@ -446,56 +235,38 @@
             <div class="cards-grid three">
 
                 <article class="info-card">
+                    <span class="card-icon">💡</span>
 
-                    <span class="card-icon">
-                        💡
-                    </span>
-
-                    <h3>
-                        Luz
-                    </h3>
+                    <h3>Luz</h3>
 
                     <p>
-                        É a radiação que pode ser detectada pelo sistema
-                        visual humano dentro da faixa visível.
+                        É a radiação que pode ser detectada pelo sistema visual humano
+                        dentro da faixa visível.
                     </p>
-
                 </article>
 
 
                 <article class="info-card">
+                    <span class="card-icon">🌈</span>
 
-                    <span class="card-icon">
-                        🌈
-                    </span>
-
-                    <h3>
-                        Espectro
-                    </h3>
+                    <h3>Espectro</h3>
 
                     <p>
-                        É a distribuição das diferentes frequências ou
-                        comprimentos de onda da radiação.
+                        É a distribuição das diferentes frequências ou comprimentos
+                        de onda da radiação.
                     </p>
-
                 </article>
 
 
                 <article class="info-card">
+                    <span class="card-icon">🔺</span>
 
-                    <span class="card-icon">
-                        🔺
-                    </span>
-
-                    <h3>
-                        Dispersão
-                    </h3>
+                    <h3>Dispersão</h3>
 
                     <p>
-                        É a separação dos componentes da luz, como ocorre
-                        quando a luz branca atravessa um prisma.
+                        É a separação dos componentes da luz, como ocorre quando
+                        a luz branca atravessa um prisma.
                     </p>
-
                 </article>
 
             </div>
@@ -503,28 +274,15 @@
         </section>
 
 
-        <!-- =================================================
-             HISTÓRIA
-        ================================================== -->
-
         <section class="section newton-section">
 
             <div class="section-heading">
 
-                <span class="section-number">
-                    03
-                </span>
+                <span class="section-number">03</span>
 
                 <div>
-
-                    <span class="eyebrow">
-                        HISTÓRIA
-                    </span>
-
-                    <h2>
-                        Newton e o estudo das cores
-                    </h2>
-
+                    <span class="eyebrow">HISTÓRIA</span>
+                    <h2>Newton e o estudo das cores</h2>
                 </div>
 
             </div>
@@ -534,21 +292,15 @@
 
                 <div class="timeline-item">
 
-                    <span class="timeline-dot">
-                        1
-                    </span>
+                    <span class="timeline-dot">1</span>
 
                     <div>
-
-                        <h3>
-                            Observação
-                        </h3>
+                        <h3>Observação</h3>
 
                         <p>
                             Newton investigou como a luz branca se comportava
                             ao atravessar um prisma.
                         </p>
-
                     </div>
 
                 </div>
@@ -559,21 +311,15 @@
 
                 <div class="timeline-item">
 
-                    <span class="timeline-dot">
-                        2
-                    </span>
+                    <span class="timeline-dot">2</span>
 
                     <div>
-
-                        <h3>
-                            Separação das cores
-                        </h3>
+                        <h3>Separação das cores</h3>
 
                         <p>
-                            A luz branca foi observada separando-se em
-                            diferentes regiões coloridas.
+                            A luz branca foi observada separando-se em diferentes
+                            regiões coloridas.
                         </p>
-
                     </div>
 
                 </div>
@@ -584,22 +330,16 @@
 
                 <div class="timeline-item">
 
-                    <span class="timeline-dot">
-                        3
-                    </span>
+                    <span class="timeline-dot">3</span>
 
                     <div>
-
-                        <h3>
-                            Recombinação
-                        </h3>
+                        <h3>Recombinação</h3>
 
                         <p>
-                            Experimentos posteriores ajudaram a mostrar que
-                            as cores podiam ser recombinadas para produzir
-                            novamente uma luz de aparência branca.
+                            Experimentos posteriores ajudaram a mostrar que as cores
+                            podiam ser recombinadas para produzir novamente uma luz
+                            de aparência branca.
                         </p>
-
                     </div>
 
                 </div>
@@ -609,66 +349,41 @@
         </section>
 
 
-        <!-- =================================================
-             EXPERIMENTO INTERATIVO
-        ================================================== -->
-
-        <section
-            class="section experiment-section"
-            id="experimento"
-        >
+        <section class="section experiment-section" id="experimento">
 
             <div class="section-heading centered">
 
-                <span class="section-number">
-                    04
-                </span>
+                <span class="section-number">04</span>
 
                 <div>
-
-                    <span class="eyebrow">
-                        EXPERIÊNCIA INTERATIVA
-                    </span>
-
-                    <h2>
-                        Gire o Disco de Newton
-                    </h2>
-
+                    <span class="eyebrow">EXPERIÊNCIA INTERATIVA</span>
+                    <h2>Gire o Disco de Newton</h2>
                 </div>
 
             </div>
 
 
             <p class="section-intro centered-text">
-
-                Controle a velocidade e observe como a percepção das cores
-                muda. O resultado na tela é uma
-                <strong>simulação digital</strong>
-                do fenômeno.
-
+                Controle a velocidade e observe como a percepção das cores muda.
+                O resultado na tela é uma <strong>simulação digital</strong> do fenômeno.
             </p>
 
 
             <div class="experiment-layout">
 
-
                 <div class="experiment-stage">
 
-                    <div
-                        class="stage-label"
-                        id="speedLabel"
-                    >
+                    <div class="stage-label" id="speedLabel">
                         DISCO PARADO
                     </div>
-
 
                     <div class="disco-wrapper">
 
                         <div
                             class="disco-visual"
                             id="disco"
-                            aria-label="Disco de Newton interativo"
-                        ></div>
+                            aria-label="Disco de Newton interativo">
+                        </div>
 
                         <div class="disco-center"></div>
 
@@ -677,13 +392,9 @@
 
                     <div class="speed-indicator">
 
-                        <span>
-                            VELOCIDADE
-                        </span>
+                        <span>VELOCIDADE</span>
 
-                        <strong id="speedValue">
-                            0%
-                        </strong>
+                        <strong id="speedValue">0%</strong>
 
                     </div>
 
@@ -694,118 +405,63 @@
                         min="0"
                         max="100"
                         value="0"
-                        aria-label="Velocidade do disco"
-                    >
-
-                </div>
+                        aria-label="Velocidade do disco">
 
 
-                <div class="control-panel">
-
-                    <span class="panel-label">
-                        CONTROLES
-                    </span>
-
-
-                    <div class="control-buttons">
+                    <div class="experiment-buttons">
 
                         <button
                             class="btn-primary"
                             id="btnGirar"
-                            type="button"
-                        >
+                            type="button">
                             ▶ Girar
                         </button>
 
                         <button
                             class="btn-secondary"
                             id="btnPausar"
-                            type="button"
-                        >
+                            type="button">
                             ⏸ Pausar
                         </button>
 
                         <button
                             class="btn-secondary"
                             id="btnResetar"
-                            type="button"
-                        >
+                            type="button">
                             ↻ Reiniciar
                         </button>
 
                     </div>
 
+                </div>
 
-                    <div class="status-box">
 
-                        <span
-                            class="status-icon"
-                            id="statusIcon"
-                        >
-                            ○
-                        </span>
+                <div class="experiment-result">
 
-                        <div>
-
-                            <strong id="resultadoTitulo">
-                                Disco parado
-                            </strong>
-
-                            <p id="resultado">
-                                Aumente a velocidade para iniciar
-                                a experiência.
-                            </p>
-
-                        </div>
-
+                    <div class="result-icon" id="statusIcon">
+                        ○
                     </div>
 
+                    <span class="eyebrow">O QUE ESTÁ ACONTECENDO?</span>
 
-                    <div class="speed-explanation">
+                    <h3 id="resultadoTitulo">
+                        Disco parado
+                    </h3>
 
-                        <div>
-
-                            <span class="dot slow"></span>
-
-                            <strong>
-                                Baixa
-                            </strong>
-
-                            <small>
-                                Cores bem definidas
-                            </small>
-
-                        </div>
+                    <p id="resultado">
+                        Aumente a velocidade para iniciar a experiência.
+                    </p>
 
 
-                        <div>
+                    <div class="warning-box">
 
-                            <span class="dot medium"></span>
+                        <strong>⚠️ Importante:</strong>
 
-                            <strong>
-                                Média
-                            </strong>
-
-                            <small>
-                                Maior integração visual
-                            </small>
-
-                        </div>
-
-
-                        <div>
-
-                            <span class="dot fast"></span>
-
-                            <strong>
-                                Alta
-                            </strong>
-
-                            <small>
-                                Aparência mais clara
-                            </small>
-
-                        </div>
+                        <p>
+                            A tela é uma representação digital. Um Disco de Newton
+                            físico utiliza pigmentos, por isso o resultado visual
+                            pode ser diferente de um branco perfeito.
+                        </p>
 
                     </div>
 
@@ -813,261 +469,85 @@
 
             </div>
 
-
-            <div class="science-note">
-
-                <strong>
-                    🔎 Importante:
-                </strong>
-
-                <span>
-                    Um disco feito com pigmentos não produz necessariamente
-                    um branco perfeito. O resultado pode ficar acinzentado
-                    porque estamos trabalhando com materiais que absorvem
-                    e refletem parte da luz. Por isso, esta página usa uma
-                    simulação visual para representar a tendência do fenômeno.
-                </span>
-
-            </div>
-
         </section>
 
-
-        <!-- =================================================
-             VISÃO HUMANA
-        ================================================== -->
 
         <section class="section" id="visao">
 
             <div class="section-heading">
 
-                <span class="section-number">
-                    05
-                </span>
+                <span class="section-number">05</span>
 
                 <div>
-
-                    <span class="eyebrow">
-                        VISÃO HUMANA
-                    </span>
-
-                    <h2>
-                        Por que percebemos as cores de forma integrada?
-                    </h2>
-
+                    <span class="eyebrow">TECNOCIÊNCIA</span>
+                    <h2>Como a visão participa do fenômeno?</h2>
                 </div>
 
             </div>
 
 
-            <div class="vision-flow">
+            <div class="vision-grid">
 
-                <div class="vision-step">
+                <div class="eye-visual" aria-hidden="true">
 
-                    <div class="vision-icon">
-                        🔴
+                    <div class="eye-outer">
+                        <div class="eye-inner"></div>
+                        <div class="pupil"></div>
+                        <div class="light-rays"></div>
                     </div>
 
-                    <strong>
-                        Cor 1
-                    </strong>
-
-                    <span>
-                        Um setor passa diante dos olhos.
-                    </span>
-
                 </div>
 
 
-                <div class="vision-arrow">
-                    →
-                </div>
+                <div class="vision-content">
 
+                    <p>
+                        A percepção das cores depende da interação entre a luz,
+                        os olhos e o cérebro. No Disco de Newton, diferentes
+                        estímulos coloridos chegam aos nossos olhos em rápida
+                        sequência.
+                    </p>
 
-                <div class="vision-step">
+                    <div class="vision-steps">
 
-                    <div class="vision-icon">
-                        🟢
+                        <div class="vision-step">
+                            <span>01</span>
+                            <strong>Luz chega aos olhos</strong>
+                        </div>
+
+                        <div class="vision-step">
+                            <span>02</span>
+                            <strong>Retina recebe os estímulos</strong>
+                        </div>
+
+                        <div class="vision-step">
+                            <span>03</span>
+                            <strong>Sinais são enviados ao cérebro</strong>
+                        </div>
+
+                        <div class="vision-step">
+                            <span>04</span>
+                            <strong>O cérebro interpreta a informação visual</strong>
+                        </div>
+
                     </div>
 
-                    <strong>
-                        Cor 2
-                    </strong>
-
-                    <span>
-                        Outro setor aparece logo depois.
-                    </span>
-
                 </div>
-
-
-                <div class="vision-arrow">
-                    →
-                </div>
-
-
-                <div class="vision-step">
-
-                    <div class="vision-icon">
-                        🔵
-                    </div>
-
-                    <strong>
-                        Cor 3
-                    </strong>
-
-                    <span>
-                        Os estímulos continuam rapidamente.
-                    </span>
-
-                </div>
-
-
-                <div class="vision-arrow">
-                    →
-                </div>
-
-
-                <div class="vision-step highlight-step">
-
-                    <div class="vision-icon">
-                        👁️
-                    </div>
-
-                    <strong>
-                        Percepção visual
-                    </strong>
-
-                    <span>
-                        Os estímulos rápidos são integrados na percepção.
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <div class="eye-explanation">
-
-                <div class="eye-illustration">
-                    👁️
-                </div>
-
-                <div>
-
-                    <h3>
-                        Da luz até o cérebro
-                    </h3>
-
-                    <p>
-                        A luz entra no olho e chega à retina, onde células
-                        fotorreceptoras captam os estímulos luminosos.
-                        A informação é transformada em sinais que seguem
-                        pelo sistema nervoso até o cérebro, onde a informação
-                        visual é interpretada.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="cards-grid four">
-
-                <article class="info-card compact">
-
-                    <span class="card-icon">
-                        💡
-                    </span>
-
-                    <h3>
-                        1. Luz
-                    </h3>
-
-                    <p>
-                        O estímulo luminoso chega ao olho.
-                    </p>
-
-                </article>
-
-
-                <article class="info-card compact">
-
-                    <span class="card-icon">
-                        👁️
-                    </span>
-
-                    <h3>
-                        2. Olho
-                    </h3>
-
-                    <p>
-                        A luz é direcionada até a retina.
-                    </p>
-
-                </article>
-
-
-                <article class="info-card compact">
-
-                    <span class="card-icon">
-                        🔬
-                    </span>
-
-                    <h3>
-                        3. Retina
-                    </h3>
-
-                    <p>
-                        Fotorreceptores captam os estímulos luminosos.
-                    </p>
-
-                </article>
-
-
-                <article class="info-card compact">
-
-                    <span class="card-icon">
-                        🧠
-                    </span>
-
-                    <h3>
-                        4. Cérebro
-                    </h3>
-
-                    <p>
-                        Os sinais são interpretados como informação visual.
-                    </p>
-
-                </article>
 
             </div>
 
         </section>
 
 
-        <!-- =================================================
-             CONCEITOS-CHAVE
-        ================================================== -->
-
-        <section class="section physics-section">
+        <section class="section">
 
             <div class="section-heading">
 
-                <span class="section-number">
-                    06
-                </span>
+                <span class="section-number">06</span>
 
                 <div>
-
-                    <span class="eyebrow">
-                        CONCEITOS-CHAVE
-                    </span>
-
-                    <h2>
-                        A Física por trás do fenômeno
-                    </h2>
-
+                    <span class="eyebrow">CONCEITOS-CHAVE</span>
+                    <h2>Entenda os principais conceitos</h2>
                 </div>
 
             </div>
@@ -1075,91 +555,50 @@
 
             <div class="concept-cards">
 
-
                 <button
                     class="concept-card"
-                    type="button"
                     data-modal-title="Espectro visível"
-                    data-modal-text="É a faixa da radiação eletromagnética que pode ser percebida pelo sistema visual humano. As cores são associadas a diferentes comprimentos de onda e frequências."
-                >
+                    data-modal-text="É a faixa da radiação eletromagnética que pode ser detectada pelo sistema visual humano. Ela é tradicionalmente representada por diferentes cores.">
 
-                    <span>
-                        🌈
-                    </span>
-
-                    <strong>
-                        Espectro visível
-                    </strong>
-
-                    <small>
-                        Clique para entender
-                    </small>
+                    <span>🌈</span>
+                    <strong>Espectro visível</strong>
+                    <small>Clique para saber mais →</small>
 
                 </button>
 
 
                 <button
                     class="concept-card"
-                    type="button"
-                    data-modal-title="Luz policromática"
-                    data-modal-text="Uma luz policromática é formada por diferentes componentes espectrais. A luz branca pode ser estudada como uma combinação de diferentes componentes da região visível."
-                >
+                    data-modal-title="Refração"
+                    data-modal-text="É a mudança na direção e na velocidade de propagação da luz quando ela passa de um meio para outro.">
 
-                    <span>
-                        💡
-                    </span>
-
-                    <strong>
-                        Luz policromática
-                    </strong>
-
-                    <small>
-                        Clique para entender
-                    </small>
+                    <span>🔺</span>
+                    <strong>Refração</strong>
+                    <small>Clique para saber mais →</small>
 
                 </button>
 
 
                 <button
                     class="concept-card"
-                    type="button"
                     data-modal-title="Dispersão"
-                    data-modal-text="A dispersão ocorre quando os diferentes componentes da luz sofrem comportamentos diferentes ao atravessar um meio, permitindo que sejam separados, como em um prisma."
-                >
+                    data-modal-text="É a separação da luz em diferentes componentes, relacionada ao fato de diferentes comprimentos de onda sofrerem diferentes desvios em determinados meios.">
 
-                    <span>
-                        🔺
-                    </span>
-
-                    <strong>
-                        Dispersão
-                    </strong>
-
-                    <small>
-                        Clique para entender
-                    </small>
+                    <span>✨</span>
+                    <strong>Dispersão</strong>
+                    <small>Clique para saber mais →</small>
 
                 </button>
 
 
                 <button
                     class="concept-card"
-                    type="button"
-                    data-modal-title="Persistência da visão"
-                    data-modal-text="É um conceito usado para descrever a continuidade percebida de uma imagem ou a integração de estímulos visuais apresentados em rápida sucessão. O Disco de Newton é uma demonstração clássica relacionada à percepção visual."
-                >
+                    data-modal-title="Percepção visual"
+                    data-modal-text="É o processo pelo qual o sistema visual recebe e interpreta informações luminosas. No experimento, a sequência rápida de cores influencia a percepção do conjunto.">
 
-                    <span>
-                        👁️
-                    </span>
-
-                    <strong>
-                        Persistência da visão
-                    </strong>
-
-                    <small>
-                        Clique para entender
-                    </small>
+                    <span>👁️</span>
+                    <strong>Percepção visual</strong>
+                    <small>Clique para saber mais →</small>
 
                 </button>
 
@@ -1168,48 +607,30 @@
         </section>
 
 
-        <!-- =================================================
-             QUIZ
-        ================================================== -->
-
-        <section
-            class="section quiz-section"
-            id="quiz"
-        >
+        <section class="section quiz-section" id="quiz">
 
             <div class="section-heading">
 
-                <span class="section-number">
-                    07
-                </span>
+                <span class="section-number">07</span>
 
                 <div>
-
-                    <span class="eyebrow">
-                        DESAFIO
-                    </span>
-
-                    <h2>
-                        Você entendeu?
-                    </h2>
-
+                    <span class="eyebrow">DESAFIO</span>
+                    <h2>Teste seus conhecimentos</h2>
                 </div>
 
             </div>
 
 
-            <div class="quiz-box">
+            <div class="quiz-container">
 
-                <div class="quiz-progress">
+                <div class="quiz-top">
 
                     <span id="quizProgress">
                         Questão 1 de 4
                     </span>
 
-                    <div class="progress-bar">
-
+                    <div class="quiz-progress">
                         <div id="quizBar"></div>
-
                     </div>
 
                 </div>
@@ -1217,25 +638,15 @@
 
                 <h3 id="quizQuestion"></h3>
 
+                <div id="quizOptions" class="quiz-options"></div>
 
-                <div
-                    class="quiz-options"
-                    id="quizOptions"
-                ></div>
-
-
-                <p
-                    class="quiz-feedback"
-                    id="quizFeedback"
-                ></p>
-
+                <div id="quizFeedback" class="quiz-feedback"></div>
 
                 <button
-                    class="btn-primary quiz-next"
                     id="quizNext"
+                    class="btn-primary"
                     type="button"
-                    disabled
-                >
+                    disabled>
                     Próxima →
                 </button>
 
@@ -1244,222 +655,75 @@
         </section>
 
 
-        <!-- =================================================
-             CURIOSIDADES
-        ================================================== -->
-
-        <section class="section">
+        <section class="section references-section">
 
             <div class="section-heading">
 
-                <span class="section-number">
-                    08
-                </span>
+                <span class="section-number">08</span>
 
                 <div>
-
-                    <span class="eyebrow">
-                        CURIOSIDADES
-                    </span>
-
-                    <h2>
-                        Você sabia?
-                    </h2>
-
+                    <span class="eyebrow">REFERÊNCIAS</span>
+                    <h2>Fontes para estudo</h2>
                 </div>
 
             </div>
 
 
-            <div class="curiosity-grid">
+            <div class="references-grid">
 
                 <article>
-
-                    <span>
-                        🌈
-                    </span>
-
-                    <h3>
-                        Arco-íris
-                    </h3>
-
+                    <strong>Óptica</strong>
                     <p>
-                        A dispersão da luz também participa dos fenômenos
-                        ópticos presentes no arco-íris.
+                        Conteúdos didáticos de Física sobre luz, espectro,
+                        refração e dispersão.
                     </p>
-
                 </article>
 
 
                 <article>
-
-                    <span>
-                        🎬
-                    </span>
-
-                    <h3>
-                        Imagens em sequência
-                    </h3>
-
+                    <strong>História da Ciência</strong>
                     <p>
-                        A percepção de movimento em sequências rápidas de
-                        imagens está relacionada à forma como o sistema
-                        visual processa estímulos.
+                        Estudos sobre Isaac Newton e suas investigações
+                        relacionadas à luz e às cores.
                     </p>
-
                 </article>
 
 
                 <article>
-
-                    <span>
-                        ⚪
-                    </span>
-
-                    <h3>
-                        Branco acinzentado
-                    </h3>
-
+                    <strong>Visão humana</strong>
                     <p>
-                        Em um disco de pigmentos, o resultado pode parecer
-                        acinzentado em vez de branco puro.
+                        Materiais didáticos de Biologia e Física sobre o
+                        sistema visual e a percepção das cores.
                     </p>
-
                 </article>
 
             </div>
-
-        </section>
-
-
-        <!-- =================================================
-             REFERÊNCIAS
-        ================================================== -->
-
-        <section class="section references">
-
-            <div class="section-heading">
-
-                <span class="section-number">
-                    09
-                </span>
-
-                <div>
-
-                    <span class="eyebrow">
-                        FONTES
-                    </span>
-
-                    <h2>
-                        Referências
-                    </h2>
-
-                </div>
-
-            </div>
-
-
-            <ul>
-
-                <li>
-                    <a
-                        href="https://educador.brasilescola.uol.com.br/estrategias-ensino/experimento-disco-newton.htm"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Brasil Escola — Experimento: Disco de Newton
-                    </a>
-                </li>
-
-                <li>
-                    <a
-                        href="https://brasilescola.uol.com.br/fisica/cor-luz.htm"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Brasil Escola — Cor da luz
-                    </a>
-                </li>
-
-                <li>
-                    <a
-                        href="https://brasilescola.uol.com.br/fisica/a-dispersao-luz-branca.htm"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Brasil Escola — Dispersão da luz branca
-                    </a>
-                </li>
-
-                <li>
-                    <a
-                        href="https://brasilescola.uol.com.br/oscincosentidos/visao.htm"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Brasil Escola — Visão
-                    </a>
-                </li>
-
-            </ul>
 
         </section>
 
     </main>
 
 
-    <!-- =====================================================
-         FOOTER
-    ====================================================== -->
-
-    <footer>
-
-        <p>
-            <strong>
-                Projeto Integrador • Colégio Estadual do Paraná
-            </strong>
-        </p>
-
-        <p>
-            Física • Tecnociência • Programação
-        </p>
-
-        <p class="footer-small">
-            Disco de Newton — luz, cores e percepção visual.
-        </p>
-
-    </footer>
-
-
-    <!-- =====================================================
-         MODAL
-    ====================================================== -->
-
     <div
         class="modal"
         id="conceptModal"
-        aria-hidden="true"
-    >
+        aria-hidden="true">
 
         <div
             class="modal-content"
             role="dialog"
             aria-modal="true"
-            aria-labelledby="modalTitle"
-        >
+            aria-labelledby="modalTitle">
 
             <button
                 class="modal-close"
                 id="modalClose"
-                aria-label="Fechar"
                 type="button"
-            >
+                aria-label="Fechar">
                 ×
             </button>
 
-            <span class="modal-icon">
-                🔬
-            </span>
+            <span class="eyebrow">CONCEITO</span>
 
             <h2 id="modalTitle"></h2>
 
@@ -1470,12 +734,28 @@
     </div>
 
 
-    <!-- =====================================================
-         JAVASCRIPT
-    ====================================================== -->
+    <footer>
+
+        <div class="footer-content">
+
+            <div>
+                <strong>DISCO DE NEWTON</strong>
+
+                <p>
+                    Projeto Integrador • Física • Tecnociência • Programação
+                </p>
+            </div>
+
+            <span>
+                Projeto escolar — Colégio Estadual do Paraná
+            </span>
+
+        </div>
+
+    </footer>
+
 
     <script src="script.js"></script>
 
 </body>
-
 </html>
